@@ -1,0 +1,866 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="CloudNest Technology Solutions — Secure, fast, and scalable cloud-hosted websites for small and medium businesses across India." />
+  <meta name="keywords" content="cloud hosting, website development, AWS hosting, business website, e-commerce, India" />
+  <meta name="author" content="CloudNest Technology Solutions" />
+  <title>CloudNest Technology Solutions — Cloud-Hosted Websites for Growing Businesses</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%232563eb'/%3E%3Ctext y='.88em' font-size='68' x='16' fill='white'%3E%E2%98%81%3C/text%3E%3C/svg%3E" />
+
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="CloudNest Technology Solutions — Cloud-Hosted Websites for Growing Businesses" />
+  <meta property="og:description" content="We build fast, secure, and scalable websites — then host them on enterprise-grade AWS infrastructure. Trusted by 50+ businesses across India." />
+  <meta property="og:locale" content="en_IN" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="CloudNest Technology Solutions" />
+  <meta name="twitter:description" content="Secure, fast, and scalable cloud-hosted websites for growing businesses in India." />
+
+  <!-- LocalBusiness Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "CloudNest Technology Solutions",
+    "description": "Cloud-first web development company building secure, scalable, AWS-hosted websites for businesses across India.",
+    "telephone": "+917875255254",
+    "email": "gatesachin1112@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Pune",
+      "addressRegion": "Maharashtra",
+      "addressCountry": "IN"
+    },
+    "openingHours": "Mo-Fr 09:00-19:00",
+    "priceRange": "₹₹",
+    "areaServed": "IN",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Web & Cloud Services",
+      "itemListElement": [
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Business Website Development"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "AWS Cloud Hosting"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Website Maintenance"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "E-Commerce Development"}}
+      ]
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     NAVBAR
+══════════════════════════════════════════════ -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <div class="navbar-inner">
+
+      <a href="#" class="logo">
+        <div class="logo-mark"><i class="fa-solid fa-cloud"></i></div>
+        <div class="logo-words">
+          <span class="name">CloudNest</span>
+          <span class="tagline">Technology Solutions</span>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#why">Why Us</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+      </ul>
+
+      <div class="nav-cta">
+        <a href="#footer" class="nav-link-btn">Contact</a>
+        <a href="#demo" class="btn btn-primary btn-sm">
+          <i class="fa-solid fa-play" style="font-size:0.65rem;"></i> Free Demo
+        </a>
+      </div>
+
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about"    onclick="closeMenu()">About</a>
+  <a href="#services" onclick="closeMenu()">Services</a>
+  <a href="#why"      onclick="closeMenu()">Why Us</a>
+  <a href="#process"  onclick="closeMenu()">Process</a>
+  <a href="#pricing"  onclick="closeMenu()">Pricing</a>
+  <a href="#testimonials" onclick="closeMenu()">Testimonials</a>
+  <div class="mobile-cta" style="margin-top:8px; padding: 0 2px;">
+    <a href="#footer" class="btn btn-outline" onclick="closeMenu()">Contact</a>
+    <a href="#demo"   class="btn btn-primary" onclick="closeMenu()">Free Demo</a>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════ -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="hero-dots"></div>
+
+  <div class="container">
+    <div class="hero-inner">
+
+      <!-- Left: copy -->
+      <div class="hero-copy">
+        <div class="hero-chip">
+          <span class="chip-dot"><i class="fa-brands fa-aws" style="font-size:0.6rem;"></i></span>
+          AWS-Powered Cloud Infrastructure
+        </div>
+
+        <h1>
+          Secure Cloud-Hosted<br />
+          Websites for <span class="text-gradient">Growing Businesses</span>
+        </h1>
+
+        <p class="hero-desc">
+          We build fast, secure, and scalable websites — then host them on enterprise-grade AWS infrastructure. Your business deserves more than just a website.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#demo"   class="btn btn-primary btn-lg">
+            <i class="fa-solid fa-rocket" style="font-size:0.8rem;"></i> Get Free Demo
+          </a>
+          <a href="#footer" class="btn btn-glass btn-lg">
+            Contact Us <i class="fa-solid fa-arrow-right" style="font-size:0.75rem;"></i>
+          </a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="hero-stat-val">99.9%</div>
+            <div class="hero-stat-label">Uptime SLA</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-val" id="clientCount" data-count="50" data-suffix="+">50+</div>
+            <div class="hero-stat-label">Clients Served</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-val">24/7</div>
+            <div class="hero-stat-label">Monitoring</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-val">&lt;1s</div>
+            <div class="hero-stat-label">Avg. Load Time</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: dashboard visual -->
+      <div class="hero-visual">
+        <div class="hero-card-stack" style="position:relative; max-width:430px; margin-left:auto;">
+          <div class="float-card fc-1">
+            <div class="fc-icon g"><i class="fa-solid fa-shield-halved"></i></div>
+            <div class="fc-text">
+              <strong>SSL Secured</strong>
+              <span>256-bit encryption</span>
+            </div>
+          </div>
+
+          <div class="dashboard-card">
+            <div class="card-topbar">
+              <div class="card-dots">
+                <div class="card-dot dot-red"></div>
+                <div class="card-dot dot-amber"></div>
+                <div class="card-dot dot-green"></div>
+              </div>
+              <div class="card-badge-live">
+                <div class="live-dot"></div> All systems operational
+              </div>
+            </div>
+
+            <div class="card-title-row">
+              <h3>Infrastructure Dashboard</h3>
+              <p>AWS Cloud — Real-time Overview</p>
+            </div>
+
+            <div class="metric-grid">
+              <div class="metric">
+                <div class="metric-val">99.9%</div>
+                <div class="metric-name">Uptime</div>
+                <div class="metric-change up"><i class="fa-solid fa-arrow-trend-up"></i> All-time high</div>
+              </div>
+              <div class="metric">
+                <div class="metric-val">320ms</div>
+                <div class="metric-name">Load Time</div>
+                <div class="metric-change up"><i class="fa-solid fa-arrow-trend-down"></i> 12% faster</div>
+              </div>
+              <div class="metric">
+                <div class="metric-val">0</div>
+                <div class="metric-name">Incidents</div>
+                <div class="metric-change neutral">This month</div>
+              </div>
+              <div class="metric">
+                <div class="metric-val">Auto</div>
+                <div class="metric-name">Scaling</div>
+                <div class="metric-change up"><i class="fa-solid fa-check"></i> Active</div>
+              </div>
+            </div>
+
+            <div class="progress-block">
+              <div class="progress-top"><span>Server Performance</span><span>98%</span></div>
+              <div class="progress-track"><div class="progress-fill fill-blue" style="width:0" data-width="98%"></div></div>
+            </div>
+            <div class="progress-block" style="margin-bottom:20px;">
+              <div class="progress-top"><span>Security Score</span><span>A+</span></div>
+              <div class="progress-track"><div class="progress-fill fill-green" style="width:0" data-width="76%"></div></div>
+            </div>
+
+            <div class="card-services-row">
+              <div class="cs-chip"><i class="fa-solid fa-globe"></i>Web</div>
+              <div class="cs-chip"><i class="fa-solid fa-server"></i>Cloud</div>
+              <div class="cs-chip"><i class="fa-solid fa-cart-shopping"></i>Store</div>
+              <div class="cs-chip"><i class="fa-solid fa-wrench"></i>Support</div>
+            </div>
+          </div>
+
+          <div class="float-card fc-2">
+            <div class="fc-icon b"><i class="fa-solid fa-rocket"></i></div>
+            <div class="fc-text">
+              <strong>Live in 7 Days</strong>
+              <span>Rapid deployment</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     TRUST BAR
+══════════════════════════════════════════════ -->
+<div class="trust-bar">
+  <div class="container">
+    <div class="trust-inner">
+      <div class="trust-item"><i class="fa-brands fa-aws"></i> Amazon AWS Infrastructure</div>
+      <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> SSL + DDoS Protection</div>
+      <div class="trust-item"><i class="fa-solid fa-clock-rotate-left"></i> Daily Automated Backups</div>
+      <div class="trust-item"><i class="fa-solid fa-gauge-high"></i> Global CDN Delivery</div>
+      <div class="trust-item"><i class="fa-solid fa-headset"></i> 24/7 Monitoring</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     ABOUT
+══════════════════════════════════════════════ -->
+<section class="about section" id="about">
+  <div class="container">
+    <div class="about-grid">
+
+      <!-- Visual -->
+      <div data-reveal>
+        <div class="about-visual">
+          <div class="about-blob-bg"></div>
+          <div class="about-cards-stack">
+            <div class="about-stat-badge">
+              <div class="asb-icon"><i class="fa-solid fa-cloud"></i></div>
+              <div>
+                <div class="asb-num">5+ Years</div>
+                <div class="asb-label">Building cloud-powered digital platforms</div>
+              </div>
+            </div>
+            <div class="about-feature-card">
+              <div class="afc-icon blue"><i class="fa-brands fa-aws"></i></div>
+              <div class="afc-text">
+                <h4>Cloud-Native from Day One</h4>
+                <p>Every project is built and deployed on AWS — the same infrastructure powering Amazon, Netflix, and the world's fastest companies.</p>
+              </div>
+            </div>
+            <div class="about-feature-card">
+              <div class="afc-icon cyan"><i class="fa-solid fa-shield-halved"></i></div>
+              <div class="afc-text">
+                <h4>Security at Every Layer</h4>
+                <p>SSL, DDoS protection, firewall configuration, and automated security audits are built into every project we deliver.</p>
+              </div>
+            </div>
+            <div class="about-feature-card">
+              <div class="afc-icon violet"><i class="fa-solid fa-chart-line"></i></div>
+              <div class="afc-text">
+                <h4>Built to Scale with You</h4>
+                <p>As your business grows, your infrastructure grows too. Auto-scaling ensures zero downtime even during traffic spikes.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Text -->
+      <div data-reveal data-delay="2">
+        <div class="section-header">
+          <div class="pill pill-blue"><i class="fa-solid fa-circle-info"></i> About CloudNest</div>
+          <h2 class="h-xl">We Build Scalable Digital Platforms,<br /><span class="text-gradient-warm">Not Just Websites</span></h2>
+          <p class="lead">CloudNest Technology Solutions is a cloud-first web development company built for the modern digital economy. We help clinics, restaurants, real estate agents, and startups establish powerful online presences — backed by enterprise-grade AWS infrastructure.</p>
+        </div>
+
+        <div class="about-kpis">
+          <div class="kpi">
+            <div class="kpi-val blue" data-count="50" data-suffix="+">50+</div>
+            <div class="kpi-label">Projects Delivered</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-val green" data-count="99.9" data-suffix="%">99.9%</div>
+            <div class="kpi-label">Average Uptime</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-val cyan">24/7</div>
+            <div class="kpi-label">Support Coverage</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-val violet" data-count="5" data-suffix="+">5+</div>
+            <div class="kpi-label">Years Experience</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 36px;">
+          <a href="#demo" class="btn btn-primary btn-lg" style="margin-right:12px;">
+            <i class="fa-solid fa-rocket" style="font-size:0.8rem;"></i> Get Free Demo
+          </a>
+          <a href="#services" class="btn btn-outline btn-lg">Explore Services</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     SERVICES
+══════════════════════════════════════════════ -->
+<section class="services section" id="services">
+  <div class="container">
+    <div class="section-header center" data-reveal>
+      <div class="pill pill-blue"><i class="fa-solid fa-layer-group"></i> Our Services</div>
+      <h2 class="h-xl">Everything Your Business Needs Online</h2>
+      <p class="lead">From design to deployment and beyond — we handle the entire digital stack so you can focus on what matters most: your business.</p>
+    </div>
+
+    <div class="services-grid">
+      <!-- Web Dev -->
+      <div class="svc-card" data-reveal data-delay="1">
+        <div class="svc-tag tag-blue"><i class="fa-solid fa-code"></i> Web Development</div>
+        <div class="svc-icon blue"><i class="fa-solid fa-laptop-code"></i></div>
+        <h3>Business Website Development</h3>
+        <p>Custom-designed websites built for conversion. Professional, fast, and mobile-first — crafted to authentically represent your brand and turn visitors into customers.</p>
+        <div class="svc-features">
+          <div class="svc-feat"><div class="svc-feat-dot dot-b"></div> Mobile-first responsive design</div>
+          <div class="svc-feat"><div class="svc-feat-dot dot-b"></div> SEO-optimized HTML structure</div>
+          <div class="svc-feat"><div class="svc-feat-dot dot-b"></div> CMS integration (WordPress / custom)</div>
+          <div class="svc-feat"><div class="svc-feat-dot dot-b"></div> Contact forms & lead capture</div>
+        </div>
+      </div>
+
+      <!-- Cloud Hosting -->
+      <div class="svc-card" data-reveal data-delay="2">
+        <div class="svc-tag tag-cyan"><i class="fa-brands fa-aws"></i> Cloud Hosting</div>
+        <div class="svc-icon cyan"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+        <h3>AWS Cloud Hosting</h3>
+        <p>Enterprise-grade cloud hosting on Amazon Web Services. Faster load times, automatic backups, global CDN delivery, and a guaranteed 99.9% uptime SLA.</p>
+        <div class="svc-features">
+          <div class="svc-feat"><div class="svc-feat-dot dot-c"></div> AWS EC2 / S3 / CloudFront setup</div>
+          <div class="svc-feat"><div class="svc-feat-dot dot-c"></div> Auto-scaling infrastructure</div>
+          <div class="svc-feat"><div class="svc-feat-dot dot-c"></div> Daily automated backups</div>
+          <div class="svc-feat"><div class="svc-feat-dot dot-c"></div> SSL + DDoS protection included</div>
+        </div>
+      </div>
+
+      <!-- Maintenance -->
+      <div class="svc-card" data-reveal data-delay="3">
+        <div class="svc-tag tag-violet"><i class="fa-solid fa-wrench"></i> Maintenance</div>
+        <div class="svc-icon violet"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+        <h3>Maintenance & Monitoring</h3>
+        <p>Your website stays healthy, fast, and secure 24/7 while you focus on running your business. We proactively catch and fix issues before your customers notice them.</p>
+        <div class="svc-features">
+          <div class="svc-feat"><div class="svc-feat-dot dot-v"></div> 24/7 uptime monitoring & alerts</div>
+          <div class="svc-feat"><div class="svc-feat-dot dot-v"></div> Security patches & updates</div>
+          <div class="svc-feat"><div class="svc-feat-dot dot-v"></div> Performance optimization</div>
+          <div class="svc-feat"><div class="svc-feat-dot dot-v"></div> Monthly analytics reports</div>
+        </div>
+      </div>
+
+      <!-- E-Commerce -->
+      <div class="svc-card" data-reveal data-delay="4">
+        <div class="svc-tag tag-green"><i class="fa-solid fa-store"></i> E-Commerce</div>
+        <div class="svc-icon green"><i class="fa-solid fa-cart-shopping"></i></div>
+        <h3>E-Commerce Development</h3>
+        <p>Fully functional online stores built to sell. Secure payments, inventory management, and a smooth checkout experience that converts from the very first visit.</p>
+        <div class="svc-features">
+          <div class="svc-feat"><div class="svc-feat-dot dot-g"></div> Razorpay / Stripe integration</div>
+          <div class="svc-feat"><div class="svc-feat-dot dot-g"></div> Product & inventory management</div>
+          <div class="svc-feat"><div class="svc-feat-dot dot-g"></div> Order tracking dashboard</div>
+          <div class="svc-feat"><div class="svc-feat-dot dot-g"></div> Mobile-optimized checkout flow</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     METRICS BAND
+══════════════════════════════════════════════ -->
+<div class="metrics-band">
+  <div class="container">
+    <div class="metrics-inner">
+      <div class="mband-stat" data-reveal>
+        <div class="mband-val"><span data-count="99.9" data-suffix="%">99.9%</span></div>
+        <div class="mband-label">Uptime Guaranteed</div>
+        <div class="mband-sub">Backed by a formal SLA</div>
+      </div>
+      <div class="mband-stat" data-reveal data-delay="1">
+        <div class="mband-val"><span>&lt;1s</span></div>
+        <div class="mband-label">Average Load Time</div>
+        <div class="mband-sub">Via AWS CloudFront CDN</div>
+      </div>
+      <div class="mband-stat" data-reveal data-delay="2">
+        <div class="mband-val"><span data-count="50" data-suffix="+">50+</span></div>
+        <div class="mband-label">Businesses Served</div>
+        <div class="mband-sub">Across India</div>
+      </div>
+      <div class="mband-stat" data-reveal data-delay="3">
+        <div class="mband-val"><span>24/7</span></div>
+        <div class="mband-label">Monitoring & Support</div>
+        <div class="mband-sub">Real engineers, not bots</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     WHY CHOOSE US
+══════════════════════════════════════════════ -->
+<section class="why section" id="why">
+  <div class="container">
+    <div class="section-header center" data-reveal>
+      <div class="pill pill-blue"><i class="fa-solid fa-trophy"></i> Why Choose Us</div>
+      <h2 class="h-xl">Built for Reliability.<br /><span class="text-gradient-warm">Designed for Growth.</span></h2>
+      <p class="lead">We don't just build websites — we build digital infrastructure that works for your business around the clock, every single day.</p>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-card" data-reveal data-delay="1">
+        <div class="why-icon-wrap">
+          <div class="why-icon-bg"></div>
+          <i class="fa-solid fa-cloud"></i>
+        </div>
+        <h3>Cloud-Optimized Architecture</h3>
+        <p>Built on AWS from the ground up — not retrofitted. Every component is optimized for cloud performance, scalability, and zero-downtime reliability.</p>
+      </div>
+
+      <div class="why-card" data-reveal data-delay="2">
+        <div class="why-icon-wrap">
+          <div class="why-icon-bg"></div>
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <h3>99.9% Uptime Guarantee</h3>
+        <p>We back our hosting with a formal SLA. Your customers can always reach your business — anytime, anywhere, on any device, without interruption.</p>
+      </div>
+
+      <div class="why-card" data-reveal data-delay="3">
+        <div class="why-icon-wrap">
+          <div class="why-icon-bg"></div>
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <h3>Secure Infrastructure</h3>
+        <p>SSL, DDoS protection, malware scanning, and automated firewall rules. Your website and customer data stay protected — period.</p>
+      </div>
+
+      <div class="why-card" data-reveal data-delay="1">
+        <div class="why-icon-wrap">
+          <div class="why-icon-bg"></div>
+          <i class="fa-solid fa-gauge-high"></i>
+        </div>
+        <h3>Fast Performance</h3>
+        <p>Sub-second load times via global CDN. Fast sites rank higher on Google and convert significantly more visitors into paying customers.</p>
+      </div>
+
+      <div class="why-card" data-reveal data-delay="2">
+        <div class="why-icon-wrap">
+          <div class="why-icon-bg"></div>
+          <i class="fa-solid fa-expand"></i>
+        </div>
+        <h3>Infinitely Scalable</h3>
+        <p>Whether you get 10 or 10,000 visitors overnight, your site handles it seamlessly. Auto-scaling infrastructure means no surprises — ever.</p>
+      </div>
+
+      <div class="why-card" data-reveal data-delay="3">
+        <div class="why-icon-wrap">
+          <div class="why-icon-bg"></div>
+          <i class="fa-solid fa-headset"></i>
+        </div>
+        <h3>Dedicated Human Support</h3>
+        <p>A real team, not a ticket queue. Our engineers are available via phone, email, and chat — ready to diagnose and resolve your issues fast.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     PROCESS
+══════════════════════════════════════════════ -->
+<section class="process section" id="process">
+  <div class="container">
+    <div class="section-header center" data-reveal>
+      <div class="pill pill-blue"><i class="fa-solid fa-list-check"></i> Our Process</div>
+      <h2 class="h-xl">From Idea to Launch in 4 Simple Steps</h2>
+      <p class="lead">A transparent, proven process that keeps you informed and in control at every stage — with no surprises along the way.</p>
+    </div>
+
+    <div class="process-track">
+      <div class="proc-step" data-reveal data-delay="1">
+        <div class="proc-circle">
+          <i class="fa-solid fa-comments"></i>
+          <span class="proc-num">1</span>
+        </div>
+        <h3>Consultation</h3>
+        <p>A free discovery call to understand your business goals, target audience, and technical requirements. Zero obligation.</p>
+      </div>
+
+      <div class="proc-step" data-reveal data-delay="2">
+        <div class="proc-circle">
+          <i class="fa-solid fa-pen-ruler"></i>
+          <span class="proc-num">2</span>
+        </div>
+        <h3>Design</h3>
+        <p>Our designers craft a custom UI that reflects your brand identity — clean, modern, and conversion-optimized.</p>
+      </div>
+
+      <div class="proc-step" data-reveal data-delay="3">
+        <div class="proc-circle">
+          <i class="fa-solid fa-rocket"></i>
+          <span class="proc-num">3</span>
+        </div>
+        <h3>Deployment</h3>
+        <p>We build and deploy on AWS — fully tested, SSL-secured, and performance-optimized before going live.</p>
+      </div>
+
+      <div class="proc-step" data-reveal data-delay="4">
+        <div class="proc-circle">
+          <i class="fa-solid fa-life-ring"></i>
+          <span class="proc-num">4</span>
+        </div>
+        <h3>Ongoing Support</h3>
+        <p>Post-launch, we monitor, maintain, and continuously improve your website so it always performs at peak.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     PRICING
+══════════════════════════════════════════════ -->
+<section class="pricing section" id="pricing">
+  <div class="container">
+    <div class="section-header center" data-reveal>
+      <div class="pill pill-blue"><i class="fa-solid fa-tag"></i> Pricing</div>
+      <h2 class="h-xl">Transparent Pricing for Every Stage</h2>
+      <p class="lead">No hidden fees. No surprises. One-time development fees with optional ongoing support. Scale up as your business grows.</p>
+    </div>
+
+    <div class="pricing-grid">
+
+      <!-- Starter -->
+      <div class="plan-card" data-reveal data-delay="1">
+        <div class="plan-tier">Starter</div>
+        <div class="plan-price-row">
+          <span class="price-sym">₹</span>
+          <span class="price-num">7,999</span>
+        </div>
+        <p class="plan-desc">Perfect for small businesses, clinics, and local services getting a professional website online for the first time.</p>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li class="pf yes"><i class="fa-solid fa-check-circle"></i> Up to 5 custom pages</li>
+          <li class="pf yes"><i class="fa-solid fa-check-circle"></i> Mobile-responsive design</li>
+          <li class="pf yes"><i class="fa-solid fa-check-circle"></i> Contact form integration</li>
+          <li class="pf yes"><i class="fa-solid fa-check-circle"></i> Basic SEO setup</li>
+          <li class="pf yes"><i class="fa-solid fa-check-circle"></i> SSL certificate included</li>
+          <li class="pf yes"><i class="fa-solid fa-check-circle"></i> 1 month free support</li>
+          <li class="pf no"><i class="fa-solid fa-times-circle"></i> E-commerce functionality</li>
+          <li class="pf no"><i class="fa-solid fa-times-circle"></i> AWS cloud hosting</li>
+        </ul>
+        <a href="#footer" class="btn btn-outline" style="width:100%; justify-content:center;">Get Started</a>
+      </div>
+
+      <!-- Business (featured) -->
+      <div class="plan-card featured" data-reveal data-delay="2">
+        <div class="popular-badge">Most Popular</div>
+        <div class="plan-tier">Business</div>
+        <div class="plan-price-row">
+          <span class="price-sym">₹</span>
+          <span class="price-num">18,999</span>
+        </div>
+        <p class="plan-desc">The complete package for growing businesses that need a powerful presence backed by cloud infrastructure.</p>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li class="pf yes"><i class="fa-solid fa-check-circle"></i> Up to 12 custom pages</li>
+          <li class="pf yes"><i class="fa-solid fa-check-circle"></i> Premium UI/UX design</li>
+          <li class="pf yes"><i class="fa-solid fa-check-circle"></i> AWS cloud hosting (1 year)</li>
+          <li class="pf yes"><i class="fa-solid fa-check-circle"></i> Advanced SEO optimization</li>
+          <li class="pf yes"><i class="fa-solid fa-check-circle"></i> Blog & CMS integration</li>
+          <li class="pf yes"><i class="fa-solid fa-check-circle"></i> Google Analytics setup</li>
+          <li class="pf yes"><i class="fa-solid fa-check-circle"></i> 3 months free support</li>
+          <li class="pf yes"><i class="fa-solid fa-check-circle"></i> Performance monitoring</li>
+        </ul>
+        <a href="#footer" class="btn btn-primary" style="width:100%; justify-content:center;">Get Started</a>
+      </div>
+
+      <!-- Premium -->
+      <div class="plan-card" data-reveal data-delay="3">
+        <div class="plan-tier">Premium</div>
+        <div class="plan-price-row">
+          <span class="price-sym">₹</span>
+          <span class="price-num">39,999<span style="font-size:1.1rem;font-weight:500;">+</span></span>
+        </div>
+        <p class="plan-desc">For businesses that need enterprise features — e-commerce, custom integrations, and a dedicated cloud environment.</p>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li class="pf yes"><i class="fa-solid fa-check-circle"></i> Unlimited pages</li>
+          <li class="pf yes"><i class="fa-solid fa-check-circle"></i> Full e-commerce store</li>
+          <li class="pf yes"><i class="fa-solid fa-check-circle"></i> Dedicated AWS environment</li>
+          <li class="pf yes"><i class="fa-solid fa-check-circle"></i> Payment gateway integration</li>
+          <li class="pf yes"><i class="fa-solid fa-check-circle"></i> Custom API integrations</li>
+          <li class="pf yes"><i class="fa-solid fa-check-circle"></i> Priority 24/7 support</li>
+          <li class="pf yes"><i class="fa-solid fa-check-circle"></i> 6 months free maintenance</li>
+          <li class="pf yes"><i class="fa-solid fa-check-circle"></i> Monthly strategy calls</li>
+        </ul>
+        <a href="#footer" class="btn btn-primary" style="width:100%; justify-content:center;">Get Started</a>
+      </div>
+
+    </div>
+
+    <p style="text-align:center; margin-top:28px; font-size:0.83rem; color:var(--ink-400);">
+      <i class="fa-solid fa-circle-info" style="color:var(--brand-500);"></i>
+      All prices are one-time development fees. Hosting renewals billed separately after year one.
+      <a href="#footer" style="color:var(--brand-600); font-weight:600;">Contact us</a> for custom enterprise quotes.
+    </p>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     TESTIMONIALS
+══════════════════════════════════════════════ -->
+<section class="testimonials section" id="testimonials">
+  <div class="container">
+    <div class="section-header center" data-reveal>
+      <div class="pill pill-blue"><i class="fa-solid fa-quote-left"></i> Testimonials</div>
+      <h2 class="h-xl">What Our Clients Are Saying</h2>
+      <p class="lead">Real results from real businesses across India who trusted CloudNest to power their digital presence.</p>
+    </div>
+
+    <div class="testi-grid">
+      <div class="testi-card" data-reveal data-delay="1">
+        <div class="testi-stars">
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+        </div>
+        <p class="testi-text">"CloudNest completely transformed how patients find our clinic online. Our appointment bookings increased by 40% within two months of launching. The AWS hosting means it's always fast and never goes down."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background: linear-gradient(135deg, #3b82f6, #06b6d4);">DR</div>
+          <div>
+            <div class="testi-name">Dr. Ramesh Iyer</div>
+            <div class="testi-role">General Physician, Bangalore</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card" data-reveal data-delay="2">
+        <div class="testi-stars">
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+        </div>
+        <p class="testi-text">"We were skeptical at first, but the CloudNest team delivered beyond our expectations. Our restaurant's online ordering is seamless and the website loads instantly even during busy weekend rushes."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">PS</div>
+          <div>
+            <div class="testi-name">Priya Sharma</div>
+            <div class="testi-role">Restaurant Owner, Mumbai</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card" data-reveal data-delay="3">
+        <div class="testi-stars">
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+        </div>
+        <p class="testi-text">"As a real estate agency, a fast and professional website is critical. CloudNest built us a stunning property listing platform on AWS — our inquiry volume has tripled and the ongoing support is exceptional."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background: linear-gradient(135deg, #10b981, #059669);">AK</div>
+          <div>
+            <div class="testi-name">Arjun Kapoor</div>
+            <div class="testi-role">Real Estate Agent, Pune</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     FINAL CTA
+══════════════════════════════════════════════ -->
+<section class="cta-section" id="demo">
+  <div class="cta-orb-1"></div>
+  <div class="cta-orb-2"></div>
+  <div class="container cta-inner">
+    <div class="pill pill-ghost" style="margin: 0 auto 22px; width:fit-content;">
+      <i class="fa-solid fa-rocket"></i> Let's Get Started
+    </div>
+    <h2>Ready to Take Your Business<br /><span class="text-gradient">to the Cloud?</span></h2>
+    <p>Book a free 30-minute consultation with our team. No commitments, no technical jargon — just a clear plan for your digital growth.</p>
+    <div class="cta-btns">
+      <a href="mailto:gatesachin1112@gmail.com" class="btn btn-white btn-lg">
+        <i class="fa-solid fa-calendar-check"></i> Request Free Demo
+      </a>
+      <a href="tel:+911234567890" class="btn btn-glass btn-lg">
+        <i class="fa-solid fa-phone"></i> Call Us Now
+      </a>
+    </div>
+    <div class="cta-assurances">
+      <div class="ca-item"><i class="fa-solid fa-check"></i> Free consultation</div>
+      <div class="ca-item"><i class="fa-solid fa-check"></i> No hidden costs</div>
+      <div class="ca-item"><i class="fa-solid fa-check"></i> Response in 24 hours</div>
+      <div class="ca-item"><i class="fa-solid fa-check"></i> No long-term lock-in</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════ -->
+<footer class="footer" id="footer">
+  <div class="container">
+    <div class="footer-grid">
+
+      <!-- Brand -->
+      <div>
+        <a href="#" class="logo">
+          <div class="logo-mark"><i class="fa-solid fa-cloud"></i></div>
+          <div class="logo-words" style="color:white;">
+            <span class="name" style="color:white;">CloudNest</span>
+            <span class="tagline" style="color:rgba(255,255,255,0.4);">Technology Solutions</span>
+          </div>
+        </a>
+        <p class="footer-brand-desc">Empowering Indian businesses with secure, scalable, and cloud-powered digital solutions. Your growth is our mission.</p>
+        <div class="socials">
+          <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" class="social-btn" aria-label="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+      </div>
+
+      <!-- Services -->
+      <div class="footer-col">
+        <h4>Services</h4>
+        <div class="footer-links">
+          <a href="#services">Business Website Development</a>
+          <a href="#services">AWS Cloud Hosting</a>
+          <a href="#services">Website Maintenance</a>
+          <a href="#services">E-Commerce Development</a>
+          <a href="#services">SEO Optimization</a>
+        </div>
+      </div>
+
+      <!-- Company -->
+      <div class="footer-col">
+        <h4>Company</h4>
+        <div class="footer-links">
+          <a href="#about">About Us</a>
+          <a href="#process">Our Process</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#testimonials">Testimonials</a>
+          <a href="#demo">Request Demo</a>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <div class="contact-list">
+          <div class="contact-row">
+            <i class="fa-solid fa-envelope"></i>
+            <a href="mailto:gatesachin1112@gmail.com">gatesachin1112@gmail.com</a>
+          </div>
+          <div class="contact-row">
+            <i class="fa-solid fa-phone"></i>
+            <a href="tel:+917875255254">+91 78752 55254</a>
+          </div>
+          <div class="contact-row">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Pune, Maharashtra, India</span>
+          </div>
+          <div class="contact-row">
+            <i class="fa-solid fa-clock"></i>
+            <span>Mon–Fri, 9:00 AM – 7:00 PM IST</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="divider-glow"></div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 CloudNest Technology Solutions. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Policy</a>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<!-- Scroll to top -->
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <i class="fa-solid fa-arrow-up"></i>
+</button>
+
+<script src="js/main.js"></script>
+
+</body>
+</html>
