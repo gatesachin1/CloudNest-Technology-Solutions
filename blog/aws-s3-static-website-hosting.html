@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Step-by-step guide to hosting a static website on AWS S3 — bucket creation, static website config, public bucket policy, and Terraform automation." />
+  <meta name="keywords" content="AWS S3 static website hosting, S3 bucket website tutorial, AWS static hosting India, Terraform S3 website, deploy website AWS" />
+  <meta name="author" content="CloudNest Technology Solutions" />
+  <meta name="robots" content="index, follow" />
+  <title>Complete Guide to AWS S3 Static Website Hosting - Cloudnest Blog</title>
+  <link rel="canonical" href="https://cloudnesttechnologysolutions.in/blog/aws-s3-static-website-hosting.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://cloudnesttechnologysolutions.in/blog/aws-s3-static-website-hosting.html" />
+  <meta property="og:title" content="Complete Guide to AWS S3 Static Website Hosting" />
+  <meta property="og:description" content="Host your static website on AWS S3 in under 30 minutes. Includes Terraform automation." />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Complete Guide to AWS S3 Static Website Hosting",
+    "description": "Step-by-step guide to hosting a static website on AWS S3 — bucket creation, static website config, public bucket policy, and Terraform automation.",
+    "author": {"@type": "Organization", "name": "Cloudnest Technology Solutions"},
+    "publisher": {"@type": "Organization", "name": "Cloudnest Technology Solutions", "url": "https://cloudnesttechnologysolutions.in"},
+    "datePublished": "2025-05-10",
+    "url": "https://cloudnesttechnologysolutions.in/blog/aws-s3-static-website-hosting.html"
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%232563eb'/%3E%3Ctext y='.88em' font-size='68' x='16' fill='white'%3E%E2%98%81%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    .post-hero { background: linear-gradient(135deg, #0c4a6e, #0369a1); padding: 160px 0 80px; text-align: center; position: relative; overflow: hidden; }
+    .post-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 50% 0%, rgba(255,255,255,0.08) 0%, transparent 60%); }
+    .post-hero-inner { position: relative; z-index: 2; max-width: 760px; margin: 0 auto; }
+    .post-hero h1 { font-family: 'Poppins', sans-serif; font-size: clamp(1.9rem, 3.5vw, 2.8rem); font-weight: 800; color: white; line-height: 1.2; letter-spacing: -0.025em; margin: 16px 0 20px; }
+    .post-meta { display: flex; align-items: center; justify-content: center; gap: 18px; flex-wrap: wrap; font-size: 0.82rem; color: rgba(255,255,255,0.55); }
+    .post-meta span { display: flex; align-items: center; gap: 6px; }
+    .breadcrumb { display: inline-flex; align-items: center; gap: 8px; font-size: 0.8rem; color: rgba(255,255,255,0.45); margin-bottom: 8px; }
+    .breadcrumb a { color: rgba(255,255,255,0.6); }
+    .breadcrumb a:hover { color: white; }
+    .breadcrumb i { font-size: 0.6rem; }
+    .post-layout { display: grid; grid-template-columns: 1fr 300px; gap: 56px; align-items: start; }
+    .post-body { font-size: 1rem; line-height: 1.85; color: var(--ink-700); }
+    .post-body h2 { font-family: 'Poppins', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--ink-900); margin: 44px 0 16px; letter-spacing: -0.02em; }
+    .post-body h3 { font-size: 1.1rem; font-weight: 700; color: var(--ink-800); margin: 28px 0 12px; }
+    .post-body p { margin-bottom: 18px; }
+    .post-body ul, .post-body ol { padding-left: 22px; margin-bottom: 18px; }
+    .post-body li { margin-bottom: 8px; }
+    .post-body strong { color: var(--ink-900); }
+    .post-body a { color: var(--brand-600); text-decoration: underline; }
+    .post-callout { background: var(--brand-50); border-left: 4px solid var(--brand-500); border-radius: 0 var(--r-md) var(--r-md) 0; padding: 18px 22px; margin: 28px 0; font-size: 0.93rem; }
+    .post-callout strong { color: var(--brand-700); }
+    .post-callout.warn { background: #fff7ed; border-color: #f59e0b; }
+    .post-callout.warn strong { color: #b45309; }
+    .post-code { background: var(--ink-900); color: #a5f3fc; font-family: 'Courier New', monospace; font-size: 0.85rem; padding: 20px 24px; border-radius: var(--r-md); margin: 20px 0; overflow-x: auto; line-height: 1.7; }
+    .step-num { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: var(--brand-600); color: white; border-radius: 50%; font-weight: 800; font-size: 0.85rem; margin-right: 10px; flex-shrink: 0; }
+    .step-heading { display: flex; align-items: center; margin: 40px 0 14px; }
+    .step-heading h2 { font-family: 'Poppins', sans-serif; font-size: 1.35rem; font-weight: 800; color: var(--ink-900); margin: 0; }
+    .post-sidebar { position: sticky; top: 100px; }
+    .sidebar-card { background: var(--surface-2); border: 1px solid var(--ink-100); border-radius: var(--r-xl); padding: 28px; margin-bottom: 20px; }
+    .sidebar-card h3 { font-size: 0.85rem; font-weight: 700; color: var(--ink-800); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.07em; }
+    .toc-list { list-style: none; }
+    .toc-list li { margin-bottom: 8px; }
+    .toc-list a { font-size: 0.83rem; color: var(--ink-500); transition: color 0.2s; }
+    .toc-list a:hover { color: var(--brand-600); }
+    .related-post { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--ink-100); text-decoration: none; }
+    .related-post:last-child { border-bottom: none; padding-bottom: 0; }
+    .related-icon { width: 40px; height: 40px; border-radius: var(--r-sm); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+    .related-post h4 { font-size: 0.82rem; font-weight: 600; color: var(--ink-700); line-height: 1.4; }
+    .related-post h4:hover { color: var(--brand-600); }
+    .post-tag { display: inline-block; background: #e0f2fe; color: #0369a1; padding: 4px 12px; border-radius: 100px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; margin-right: 6px; margin-bottom: 6px; }
+    @media (max-width: 960px) { .post-layout { grid-template-columns: 1fr; } .post-sidebar { position: static; } }
+  </style>
+</head>
+<body>
+
+<nav class="navbar scrolled" id="navbar">
+  <div class="container">
+    <div class="navbar-inner">
+      <a href="../index.html" class="logo">
+        <div class="logo-mark"><i class="fa-solid fa-cloud"></i></div>
+        <div class="logo-words"><span class="name">CloudNest</span><span class="tagline">Technology Solutions</span></div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../services.html">Services</a></li>
+        <li><a href="../index.html#pricing">Pricing</a></li>
+        <li><a href="index.html" style="background:var(--brand-50);color:var(--brand-700);">Blog</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="../contact.html" class="nav-link-btn">Contact</a>
+        <a href="../contact.html" class="btn btn-primary btn-sm"><i class="fa-solid fa-play" style="font-size:0.65rem;"></i> Free Demo</a>
+      </div>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="../about.html" onclick="closeMenu()">About</a>
+  <a href="../services.html" onclick="closeMenu()">Services</a>
+  <a href="../index.html#pricing" onclick="closeMenu()">Pricing</a>
+  <a href="index.html" onclick="closeMenu()">Blog</a>
+  <div class="mobile-cta" style="margin-top:8px;padding:0 2px;">
+    <a href="../contact.html" class="btn btn-outline" onclick="closeMenu()">Contact</a>
+    <a href="../contact.html" class="btn btn-primary" onclick="closeMenu()">Free Demo</a>
+  </div>
+</div>
+
+
+<section class="post-hero">
+  <div class="container post-hero-inner">
+    <div class="breadcrumb">
+      <a href="../index.html">Home</a>
+      <i class="fa-solid fa-chevron-right"></i>
+      <a href="index.html">Blog</a>
+      <i class="fa-solid fa-chevron-right"></i>
+      <span>AWS S3 Hosting</span>
+    </div>
+    <span class="post-tag">AWS</span>
+    <h1>Complete Guide to Hosting Your Website on AWS S3</h1>
+    <div class="post-meta">
+      <span><i class="fa-regular fa-calendar"></i> May 2025</span>
+      <span><i class="fa-regular fa-clock"></i> 8 min read</span>
+      <span><i class="fa-solid fa-user"></i> Cloudnest Team</span>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="background: white;">
+  <div class="container">
+    <div class="post-layout">
+      <article class="post-body">
+
+        <p>AWS S3 (Simple Storage Service) is not just for storing files — it is also one of the most reliable and cost-effective ways to host a static website. With S3, you get <strong>99.999999999% (11 9s) durability</strong>, automatic scaling, and hosting costs that are typically under ₹50/month for a typical business website.</p>
+
+        <p>In this guide, we'll walk you through setting up S3 static website hosting both manually (via the AWS Console) and automatically using Terraform.</p>
+
+        <div class="post-callout">
+          <strong>What is a static website?</strong> A site made of HTML, CSS, and JavaScript files — no server-side processing. This includes most marketing websites, portfolio sites, documentation sites, and landing pages.
+        </div>
+
+        <div class="step-heading" id="step1">
+          <span class="step-num">1</span>
+          <h2>Create an S3 Bucket with Your Domain Name</h2>
+        </div>
+
+        <p>For S3 static website hosting to work seamlessly with a custom domain, <strong>the bucket name must exactly match your domain name</strong>.</p>
+
+        <p>In the AWS Console, go to S3 → Create bucket:</p>
+        <ul>
+          <li><strong>Bucket name:</strong> <code>yourdomain.com</code> (e.g. <code>cloudnesttechnologysolutions.in</code>)</li>
+          <li><strong>AWS Region:</strong> Choose the region closest to your users. For India, <code>ap-south-1</code> (Mumbai) is ideal for latency.</li>
+          <li>Leave all other settings at defaults for now.</li>
+        </ul>
+
+        <p>If you also want <code>www.yourdomain.com</code> to work, create a second bucket named <code>www.yourdomain.com</code>. This bucket will only redirect to the root domain (see Step 5).</p>
+
+        <div class="step-heading" id="step2">
+          <span class="step-num">2</span>
+          <h2>Enable Static Website Hosting</h2>
+        </div>
+
+        <p>Go to your bucket → Properties → Static website hosting → Enable.</p>
+        <ul>
+          <li><strong>Index document:</strong> <code>index.html</code></li>
+          <li><strong>Error document:</strong> <code>index.html</code> (or <code>404.html</code> if you have one)</li>
+        </ul>
+
+        <p>After saving, AWS will show you a website endpoint like:</p>
+        <div class="post-code">http://cloudnesttechnologysolutions.in.s3-website-ap-south-1.amazonaws.com</div>
+
+        <p>Note this endpoint — you'll use it when configuring DNS.</p>
+
+        <div class="step-heading" id="step3">
+          <span class="step-num">3</span>
+          <h2>Disable the Public Access Block</h2>
+        </div>
+
+        <p>By default, AWS S3 blocks all public access. For a public website, you need to allow it. Go to your bucket → Permissions → Block public access → Edit → <strong>uncheck all four options</strong> → Save.</p>
+
+        <div class="post-callout warn">
+          <strong>Important:</strong> Only do this for buckets that are intentionally public. Never disable the public access block on buckets storing sensitive data like backups, user uploads, or database exports.
+        </div>
+
+        <div class="step-heading" id="step4">
+          <span class="step-num">4</span>
+          <h2>Add a Bucket Policy for Public Read</h2>
+        </div>
+
+        <p>Go to your bucket → Permissions → Bucket policy → Edit. Paste this policy (replace the bucket name with yours):</p>
+
+        <div class="post-code">{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PublicRead",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::cloudnesttechnologysolutions.in/*"
+    }
+  ]
+}</div>
+
+        <p>This allows anyone on the internet to read (download) files from the bucket — which is exactly what you want for a public website.</p>
+
+        <div class="step-heading" id="step5">
+          <span class="step-num">5</span>
+          <h2>Upload Your Website Files</h2>
+        </div>
+
+        <p>Upload your <code>index.html</code>, CSS, JavaScript, and image files to the bucket, preserving the folder structure. The easiest way is the AWS Console drag-and-drop, but for production use, the AWS CLI is faster:</p>
+
+        <div class="post-code">aws s3 sync ./dist s3://cloudnesttechnologysolutions.in \
+  --delete \
+  --cache-control "max-age=86400"</div>
+
+        <p>The <code>--delete</code> flag removes files from S3 that no longer exist in your local directory. The <code>--cache-control</code> header tells browsers to cache files for 24 hours, improving load times.</p>
+
+        <div class="step-heading" id="step6">
+          <span class="step-num">6</span>
+          <h2>Configure the www Redirect Bucket</h2>
+        </div>
+
+        <p>For your <code>www.yourdomain.com</code> bucket, enable static website hosting but choose <strong>"Redirect requests for an object"</strong> and set the host name to your root domain (<code>yourdomain.com</code>). This way, any visitor going to <code>www.cloudnesttechnologysolutions.in</code> will be redirected to <code>cloudnesttechnologysolutions.in</code> automatically.</p>
+
+        <div class="step-heading" id="step7">
+          <span class="step-num">7</span>
+          <h2>Automate It All with Terraform</h2>
+        </div>
+
+        <p>Doing this manually every time you set up a new project is tedious and error-prone. Here's the Terraform equivalent of everything above:</p>
+
+        <div class="post-code">resource "aws_s3_bucket" "root" {
+  bucket        = "cloudnesttechnologysolutions.in"
+  force_destroy = true
+}
+
+resource "aws_s3_bucket_website_configuration" "root" {
+  bucket = aws_s3_bucket.root.id
+  index_document { suffix = "index.html" }
+  error_document { key    = "index.html" }
+}
+
+resource "aws_s3_bucket_public_access_block" "root" {
+  bucket                  = aws_s3_bucket.root.id
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
+}
+
+resource "aws_s3_bucket_policy" "root" {
+  bucket     = aws_s3_bucket.root.id
+  depends_on = [aws_s3_bucket_public_access_block.root]
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Sid       = "PublicRead"
+      Effect    = "Allow"
+      Principal = "*"
+      Action    = "s3:GetObject"
+      Resource  = "arn:aws:s3:::cloudnesttechnologysolutions.in/*"
+    }]
+  })
+}</div>
+
+        <p>Run <code>terraform init && terraform apply</code> and your entire infrastructure is set up in under a minute, reproducibly, every time.</p>
+
+        <h2 id="dns">Connecting Your Domain (Route 53)</h2>
+
+        <p>In AWS Route 53, create an A record for your root domain as an <strong>Alias record</strong> pointing to your S3 website endpoint. Do the same for <code>www</code> pointing to the www bucket's endpoint.</p>
+
+        <p>DNS propagation takes a few minutes to a few hours. After that, <code>http://cloudnesttechnologysolutions.in</code> will serve your website directly from S3.</p>
+
+        <div class="post-callout">
+          <strong>Want HTTPS?</strong> S3 static hosting only supports HTTP. To add HTTPS (SSL), you'll need to add CloudFront in front of S3. We cover that in a separate guide, or you can <a href="../contact.html">contact us</a> and we'll set it up for you.
+        </div>
+
+        <h2 id="costs">How Much Does It Cost?</h2>
+
+        <p>S3 pricing in the Mumbai (<code>ap-south-1</code>) region:</p>
+        <ul>
+          <li><strong>Storage:</strong> ₹1.95 per GB per month (most websites are under 50 MB)</li>
+          <li><strong>Requests:</strong> ₹0.30 per 10,000 GET requests</li>
+          <li><strong>Data transfer out:</strong> ₹6.90 per GB after the first 100 GB/month</li>
+        </ul>
+
+        <p>For a typical business website with 5,000 monthly visitors, the total S3 cost is usually <strong>under ₹50 per month</strong>. That's significantly cheaper than shared hosting, with far better reliability.</p>
+
+        <div class="post-callout">
+          <strong>Need help setting this up?</strong> <a href="../contact.html">Reach out to Cloudnest</a> — we'll get your website live on AWS S3 with proper Terraform configuration and DNS setup, typically within one business day.
+        </div>
+
+      </article>
+
+      <aside class="post-sidebar">
+        <div class="sidebar-card">
+          <h3>Table of Contents</h3>
+          <ul class="toc-list">
+            <li><a href="#step1">1. Create S3 Bucket</a></li>
+            <li><a href="#step2">2. Enable Static Hosting</a></li>
+            <li><a href="#step3">3. Disable Public Block</a></li>
+            <li><a href="#step4">4. Add Bucket Policy</a></li>
+            <li><a href="#step5">5. Upload Files</a></li>
+            <li><a href="#step6">6. WWW Redirect</a></li>
+            <li><a href="#step7">7. Terraform Automation</a></li>
+            <li><a href="#dns">DNS Setup</a></li>
+            <li><a href="#costs">Cost Breakdown</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-card">
+          <h3>Related Articles</h3>
+          <a href="devops-best-practices-2025.html" class="related-post">
+            <div class="related-icon" style="background:#1e3a8a;color:#60a5fa;"><i class="fa-solid fa-code-branch"></i></div>
+            <h4>DevOps Best Practices for Indian Businesses</h4>
+          </a>
+          <a href="what-is-sre.html" class="related-post">
+            <div class="related-icon" style="background:#3b0764;color:#c084fc;"><i class="fa-solid fa-gauge-high"></i></div>
+            <h4>What is SRE?</h4>
+          </a>
+        </div>
+
+        <div class="sidebar-card" style="background:var(--brand-700); border-color:var(--brand-700);">
+          <h3 style="color:rgba(255,255,255,0.7);">Done-For-You Setup</h3>
+          <p style="font-size:0.84rem; color:rgba(255,255,255,0.65); margin-bottom:16px; line-height:1.65;">We'll configure your S3 buckets, Terraform, and DNS — live in one day.</p>
+          <a href="../contact.html" class="btn btn-white btn-sm" style="width:100%; justify-content:center;">Get Started</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<footer class="footer" id="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="../index.html" class="logo">
+          <div class="logo-mark"><i class="fa-solid fa-cloud"></i></div>
+          <div class="logo-words" style="color:white;"><span class="name" style="color:white;">CloudNest</span><span class="tagline" style="color:rgba(255,255,255,0.4);">Technology Solutions</span></div>
+        </a>
+        <p class="footer-brand-desc">Empowering Indian businesses with DevOps, cloud infrastructure, and scalable digital solutions.</p>
+      </div>
+      <div class="footer-col"><h4>Services</h4><div class="footer-links"><a href="../services.html">DevOps Consulting</a><a href="../services.html">AWS Cloud Infrastructure</a><a href="../services.html">SRE Services</a></div></div>
+      <div class="footer-col"><h4>Blog</h4><div class="footer-links"><a href="devops-best-practices-2025.html">DevOps Best Practices</a><a href="aws-s3-static-website-hosting.html">AWS S3 Hosting Guide</a><a href="what-is-sre.html">What is SRE?</a></div></div>
+      <div class="footer-col"><h4>Contact</h4><div class="contact-list"><div class="contact-row"><i class="fa-solid fa-envelope"></i><a href="mailto:gatesachin1112@gmail.com">gatesachin1112@gmail.com</a></div><div class="contact-row"><i class="fa-solid fa-phone"></i><a href="tel:+917875255254">+91 78752 55254</a></div></div></div>
+    </div>
+    <div class="divider-glow"></div>
+    <div class="footer-bottom"><p>&copy; 2025 CloudNest Technology Solutions. All rights reserved.</p></div>
+  </div>
+</footer>
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+<script src="../js/main.js"></script>
+</body>
+</html>

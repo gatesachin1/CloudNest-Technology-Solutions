@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="What is Site Reliability Engineering (SRE)? A plain-English explanation of SRE principles — SLOs, error budgets, toil, and how it differs from traditional DevOps." />
+  <meta name="keywords" content="what is SRE, site reliability engineering, SLO SLA SLI explained, error budget, toil reduction, SRE vs DevOps India" />
+  <meta name="author" content="CloudNest Technology Solutions" />
+  <meta name="robots" content="index, follow" />
+  <title>What is Site Reliability Engineering (SRE)? - Cloudnest Blog</title>
+  <link rel="canonical" href="https://cloudnesttechnologysolutions.in/blog/what-is-sre.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://cloudnesttechnologysolutions.in/blog/what-is-sre.html" />
+  <meta property="og:title" content="What is Site Reliability Engineering (SRE)?" />
+  <meta property="og:description" content="Plain-English explanation of SRE, SLOs, error budgets, and how to apply SRE principles at your business." />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "What is Site Reliability Engineering (SRE)?",
+    "description": "Plain-English explanation of SRE principles — SLOs, error budgets, toil reduction, and how SRE differs from traditional operations.",
+    "author": {"@type": "Organization", "name": "Cloudnest Technology Solutions"},
+    "publisher": {"@type": "Organization", "name": "Cloudnest Technology Solutions", "url": "https://cloudnesttechnologysolutions.in"},
+    "datePublished": "2025-05-20",
+    "url": "https://cloudnesttechnologysolutions.in/blog/what-is-sre.html"
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%232563eb'/%3E%3Ctext y='.88em' font-size='68' x='16' fill='white'%3E%E2%98%81%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    .post-hero { background: linear-gradient(135deg, #3b0764, #6d28d9); padding: 160px 0 80px; text-align: center; position: relative; overflow: hidden; }
+    .post-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 50% 0%, rgba(255,255,255,0.07) 0%, transparent 60%); }
+    .post-hero-inner { position: relative; z-index: 2; max-width: 760px; margin: 0 auto; }
+    .post-hero h1 { font-family: 'Poppins', sans-serif; font-size: clamp(1.9rem, 3.5vw, 2.8rem); font-weight: 800; color: white; line-height: 1.2; letter-spacing: -0.025em; margin: 16px 0 20px; }
+    .post-meta { display: flex; align-items: center; justify-content: center; gap: 18px; flex-wrap: wrap; font-size: 0.82rem; color: rgba(255,255,255,0.55); }
+    .post-meta span { display: flex; align-items: center; gap: 6px; }
+    .breadcrumb { display: inline-flex; align-items: center; gap: 8px; font-size: 0.8rem; color: rgba(255,255,255,0.45); margin-bottom: 8px; }
+    .breadcrumb a { color: rgba(255,255,255,0.6); }
+    .breadcrumb a:hover { color: white; }
+    .breadcrumb i { font-size: 0.6rem; }
+    .post-layout { display: grid; grid-template-columns: 1fr 300px; gap: 56px; align-items: start; }
+    .post-body { font-size: 1rem; line-height: 1.85; color: var(--ink-700); }
+    .post-body h2 { font-family: 'Poppins', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--ink-900); margin: 44px 0 16px; letter-spacing: -0.02em; }
+    .post-body h3 { font-size: 1.1rem; font-weight: 700; color: var(--ink-800); margin: 28px 0 12px; }
+    .post-body p { margin-bottom: 18px; }
+    .post-body ul, .post-body ol { padding-left: 22px; margin-bottom: 18px; }
+    .post-body li { margin-bottom: 8px; }
+    .post-body strong { color: var(--ink-900); }
+    .post-body a { color: var(--brand-600); text-decoration: underline; }
+    .post-callout { background: var(--brand-50); border-left: 4px solid var(--brand-500); border-radius: 0 var(--r-md) var(--r-md) 0; padding: 18px 22px; margin: 28px 0; font-size: 0.93rem; }
+    .post-callout strong { color: var(--brand-700); }
+    .post-callout.violet { background: #f5f3ff; border-color: var(--violet-500); }
+    .post-callout.violet strong { color: #6d28d9; }
+    .concept-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 28px 0; }
+    .concept-card { background: var(--surface-2); border: 1px solid var(--ink-100); border-radius: var(--r-lg); padding: 22px; }
+    .concept-card h4 { font-size: 0.9rem; font-weight: 700; color: var(--ink-800); margin-bottom: 6px; }
+    .concept-card p { font-size: 0.83rem; color: var(--ink-500); line-height: 1.65; margin: 0; }
+    .post-sidebar { position: sticky; top: 100px; }
+    .sidebar-card { background: var(--surface-2); border: 1px solid var(--ink-100); border-radius: var(--r-xl); padding: 28px; margin-bottom: 20px; }
+    .sidebar-card h3 { font-size: 0.85rem; font-weight: 700; color: var(--ink-800); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.07em; }
+    .toc-list { list-style: none; }
+    .toc-list li { margin-bottom: 8px; }
+    .toc-list a { font-size: 0.83rem; color: var(--ink-500); transition: color 0.2s; }
+    .toc-list a:hover { color: var(--brand-600); }
+    .related-post { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--ink-100); text-decoration: none; }
+    .related-post:last-child { border-bottom: none; padding-bottom: 0; }
+    .related-icon { width: 40px; height: 40px; border-radius: var(--r-sm); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+    .related-post h4 { font-size: 0.82rem; font-weight: 600; color: var(--ink-700); line-height: 1.4; }
+    .post-tag { display: inline-block; background: #f5f3ff; color: #6d28d9; padding: 4px 12px; border-radius: 100px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; margin-right: 6px; margin-bottom: 6px; }
+    @media (max-width: 960px) { .post-layout { grid-template-columns: 1fr; } .post-sidebar { position: static; } .concept-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<nav class="navbar scrolled" id="navbar">
+  <div class="container">
+    <div class="navbar-inner">
+      <a href="../index.html" class="logo">
+        <div class="logo-mark"><i class="fa-solid fa-cloud"></i></div>
+        <div class="logo-words"><span class="name">CloudNest</span><span class="tagline">Technology Solutions</span></div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../services.html">Services</a></li>
+        <li><a href="../index.html#pricing">Pricing</a></li>
+        <li><a href="index.html" style="background:var(--brand-50);color:var(--brand-700);">Blog</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="../contact.html" class="nav-link-btn">Contact</a>
+        <a href="../contact.html" class="btn btn-primary btn-sm"><i class="fa-solid fa-play" style="font-size:0.65rem;"></i> Free Demo</a>
+      </div>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="../about.html" onclick="closeMenu()">About</a>
+  <a href="../services.html" onclick="closeMenu()">Services</a>
+  <a href="../index.html#pricing" onclick="closeMenu()">Pricing</a>
+  <a href="index.html" onclick="closeMenu()">Blog</a>
+  <div class="mobile-cta" style="margin-top:8px;padding:0 2px;">
+    <a href="../contact.html" class="btn btn-outline" onclick="closeMenu()">Contact</a>
+    <a href="../contact.html" class="btn btn-primary" onclick="closeMenu()">Free Demo</a>
+  </div>
+</div>
+
+
+<section class="post-hero">
+  <div class="container post-hero-inner">
+    <div class="breadcrumb">
+      <a href="../index.html">Home</a>
+      <i class="fa-solid fa-chevron-right"></i>
+      <a href="index.html">Blog</a>
+      <i class="fa-solid fa-chevron-right"></i>
+      <span>What is SRE?</span>
+    </div>
+    <span class="post-tag">SRE</span>
+    <h1>What is Site Reliability Engineering (SRE)?</h1>
+    <div class="post-meta">
+      <span><i class="fa-regular fa-calendar"></i> May 2025</span>
+      <span><i class="fa-regular fa-clock"></i> 6 min read</span>
+      <span><i class="fa-solid fa-user"></i> Cloudnest Team</span>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="background: white;">
+  <div class="container">
+    <div class="post-layout">
+      <article class="post-body">
+
+        <p>Site Reliability Engineering — SRE — is a discipline that applies software engineering principles to infrastructure and operations problems. It was <strong>invented at Google in 2003</strong> by Ben Treynor Sloss, and has since been adopted by hundreds of companies worldwide to build more reliable, scalable systems.</p>
+
+        <p>In plain language: SRE is what happens when a software engineer is given responsibility for keeping production systems running — and uses code to solve problems that would traditionally require manual intervention.</p>
+
+        <h2 id="sre-vs-devops">SRE vs. DevOps — What's the Difference?</h2>
+
+        <p>Both SRE and DevOps aim to break down the wall between development and operations teams. The key difference is in approach:</p>
+
+        <div class="concept-grid">
+          <div class="concept-card">
+            <h4>DevOps</h4>
+            <p>A cultural philosophy and set of practices. DevOps focuses on collaboration, automation, CI/CD, and shortening the feedback loop between development and production.</p>
+          </div>
+          <div class="concept-card">
+            <h4>SRE</h4>
+            <p>An implementation of DevOps with specific prescriptions. SRE defines concrete practices like SLOs, error budgets, and toil reduction — it is more opinionated.</p>
+          </div>
+        </div>
+
+        <p>Google's own description: <em>"SRE is what you get when you treat operations as a software problem."</em> If DevOps is the philosophy, SRE is one concrete way to practice it.</p>
+
+        <h2 id="slo">The Core Concepts: SLI, SLO, SLA</h2>
+
+        <p>These three acronyms are the foundation of SRE. Understanding them will transform how you think about system reliability.</p>
+
+        <h3>SLI — Service Level Indicator</h3>
+        <p>A <strong>measurement</strong> of how your system is performing. Examples:</p>
+        <ul>
+          <li>Request success rate (successful requests / total requests)</li>
+          <li>API latency (percentage of requests under 200ms)</li>
+          <li>Availability (minutes the service was accessible / total minutes)</li>
+        </ul>
+
+        <h3>SLO — Service Level Objective</h3>
+        <p>A <strong>target</strong> for your SLI. Examples:</p>
+        <ul>
+          <li>99.9% of requests succeed over a 30-day window</li>
+          <li>95% of API requests complete in under 200ms</li>
+          <li>Website is available 99.95% of the time each calendar month</li>
+        </ul>
+        <p>SLOs are <em>internal</em> targets — they are how your engineering team knows whether the system is healthy. They are slightly stricter than your SLA.</p>
+
+        <h3>SLA — Service Level Agreement</h3>
+        <p>A <strong>contract</strong> with customers, with consequences if the target is missed. Most B2B services offer uptime SLAs of 99.9% or 99.95%. If you miss the SLA, you typically owe the customer a credit.</p>
+
+        <div class="post-callout violet">
+          <strong>Key insight:</strong> Your SLO should be <em>stricter</em> than your SLA. If your SLA promises 99.9% uptime, your internal SLO should target 99.95%. This gives you a buffer so you can detect and fix problems before they breach the SLA and cost you money or reputation.
+        </div>
+
+        <h2 id="error-budget">Error Budgets — The Most Powerful SRE Concept</h2>
+
+        <p>An <strong>error budget</strong> is the amount of unreliability your SLO permits. If your SLO is 99.9% availability, you have a 0.1% error budget — roughly <strong>43 minutes of downtime per month</strong>.</p>
+
+        <p>Error budgets change how teams make decisions:</p>
+
+        <ul>
+          <li>If the error budget is <strong>full</strong> (plenty remaining): The team can deploy new features aggressively. They have room to take risks.</li>
+          <li>If the error budget is <strong>nearly exhausted</strong>: Deployments slow down. The team focuses on reliability improvements instead of new features.</li>
+          <li>If the error budget is <strong>exhausted</strong>: Feature work stops entirely until reliability is restored.</li>
+        </ul>
+
+        <p>This creates a healthy tension: developers want to ship features, but if they cause too many incidents, their own error budget forces them to stop and fix reliability. No more finger-pointing between "dev" and "ops."</p>
+
+        <h2 id="toil">Toil — The Enemy of Reliability</h2>
+
+        <p>In SRE, <strong>toil</strong> is manual, repetitive, operational work that scales linearly with service growth and has no lasting value. Examples:</p>
+        <ul>
+          <li>Manually restarting a service every time it crashes</li>
+          <li>Manually approving SSL certificate renewals</li>
+          <li>Manually scaling up servers every Friday before a sales event</li>
+          <li>Manually responding to low-priority alerts that aren't actionable</li>
+        </ul>
+
+        <p>Google's SRE book recommends that SRE teams spend <strong>no more than 50% of their time on toil</strong>. The rest should be on engineering work — automating away the toil itself, improving reliability, and building better systems.</p>
+
+        <div class="post-callout">
+          <strong>Practical exercise:</strong> List the five most repetitive tasks your operations team does every week. Each one is a toil reduction opportunity — and eliminating them is an SRE project.
+        </div>
+
+        <h2 id="sre-small">Does SRE Apply to Small Businesses?</h2>
+
+        <p>The full Google-scale SRE model — dedicated SRE teams, complex error budget policies — is overkill for most Indian SMBs. But the <em>principles</em> apply at any scale:</p>
+
+        <ul>
+          <li><strong>Define what "good" looks like</strong> — even a simple "our website should be up 99.9% of the time" is a useful SLO.</li>
+          <li><strong>Measure it</strong> — set up a free uptime monitor (UptimeRobot, Freshping) and check your availability each month.</li>
+          <li><strong>Automate your most painful manual task</strong> — this is toil reduction, even if you don't call it that.</li>
+          <li><strong>Set up meaningful alerts</strong> — not "CPU is over 70%" but "error rate is over 1% for 5 minutes."</li>
+        </ul>
+
+        <p>These four practices will make your business operations more reliable, your team less stressed, and your customers happier — without needing a 50-person SRE organisation.</p>
+
+        <h2 id="summary">Summary</h2>
+
+        <p>SRE is a set of engineering practices — not just a job title — for keeping production systems reliable. Its core ideas are:</p>
+
+        <ol>
+          <li><strong>Measure reliability</strong> with SLIs</li>
+          <li><strong>Set targets</strong> with SLOs</li>
+          <li><strong>Use error budgets</strong> to balance feature velocity and reliability</li>
+          <li><strong>Eliminate toil</strong> through automation</li>
+          <li><strong>Build on data</strong>, not gut feel or blame</li>
+        </ol>
+
+        <p>Whether you're a single founder with one AWS server, or a 20-person startup with microservices, these principles will help you build and operate software that your customers can depend on.</p>
+
+        <div class="post-callout">
+          <strong>Ready to implement SRE practices?</strong> <a href="../contact.html">Talk to the Cloudnest team</a> — we help businesses of all sizes set up SLOs, observability stacks, and toil-reduction automation on AWS.
+        </div>
+
+      </article>
+
+      <aside class="post-sidebar">
+        <div class="sidebar-card">
+          <h3>Table of Contents</h3>
+          <ul class="toc-list">
+            <li><a href="#sre-vs-devops">SRE vs DevOps</a></li>
+            <li><a href="#slo">SLI, SLO & SLA</a></li>
+            <li><a href="#error-budget">Error Budgets</a></li>
+            <li><a href="#toil">Toil Reduction</a></li>
+            <li><a href="#sre-small">SRE for Small Businesses</a></li>
+            <li><a href="#summary">Summary</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-card">
+          <h3>Related Articles</h3>
+          <a href="devops-best-practices-2025.html" class="related-post">
+            <div class="related-icon" style="background:#1e3a8a;color:#60a5fa;"><i class="fa-solid fa-code-branch"></i></div>
+            <h4>DevOps Best Practices for Indian Businesses</h4>
+          </a>
+          <a href="aws-s3-static-website-hosting.html" class="related-post">
+            <div class="related-icon" style="background:#0c4a6e;color:#38bdf8;"><i class="fa-brands fa-aws"></i></div>
+            <h4>AWS S3 Static Website Hosting Guide</h4>
+          </a>
+        </div>
+
+        <div class="sidebar-card" style="background:var(--brand-700); border-color:var(--brand-700);">
+          <h3 style="color:rgba(255,255,255,0.7);">SRE for Your Team</h3>
+          <p style="font-size:0.84rem; color:rgba(255,255,255,0.65); margin-bottom:16px; line-height:1.65;">We set up SLOs, observability, and alerting for businesses across India. Free consultation available.</p>
+          <a href="../contact.html" class="btn btn-white btn-sm" style="width:100%; justify-content:center;">Book Free Call</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<footer class="footer" id="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="../index.html" class="logo">
+          <div class="logo-mark"><i class="fa-solid fa-cloud"></i></div>
+          <div class="logo-words" style="color:white;"><span class="name" style="color:white;">CloudNest</span><span class="tagline" style="color:rgba(255,255,255,0.4);">Technology Solutions</span></div>
+        </a>
+        <p class="footer-brand-desc">Empowering Indian businesses with DevOps, cloud infrastructure, and scalable digital solutions.</p>
+      </div>
+      <div class="footer-col"><h4>Services</h4><div class="footer-links"><a href="../services.html">DevOps Consulting</a><a href="../services.html">AWS Cloud Infrastructure</a><a href="../services.html">SRE Services</a></div></div>
+      <div class="footer-col"><h4>Blog</h4><div class="footer-links"><a href="devops-best-practices-2025.html">DevOps Best Practices</a><a href="aws-s3-static-website-hosting.html">AWS S3 Hosting Guide</a><a href="what-is-sre.html">What is SRE?</a></div></div>
+      <div class="footer-col"><h4>Contact</h4><div class="contact-list"><div class="contact-row"><i class="fa-solid fa-envelope"></i><a href="mailto:gatesachin1112@gmail.com">gatesachin1112@gmail.com</a></div><div class="contact-row"><i class="fa-solid fa-phone"></i><a href="tel:+917875255254">+91 78752 55254</a></div></div></div>
+    </div>
+    <div class="divider-glow"></div>
+    <div class="footer-bottom"><p>&copy; 2025 CloudNest Technology Solutions. All rights reserved.</p></div>
+  </div>
+</footer>
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+<script src="../js/main.js"></script>
+</body>
+</html>

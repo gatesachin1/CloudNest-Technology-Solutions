@@ -12,9 +12,14 @@ provider "aws" {
   region = var.aws_region
 }
 
-# ── S3 Bucket ────────────────────────────────────────────────────────────────
-resource "aws_s3_bucket" "website" {
-  bucket        = var.bucket_name
+
+# ═══════════════════════════════════════════════════════════════════════════════
+#  ROOT BUCKET — cloudnesttechnologysolutions.in
+#  Hosts all website files with public read access
+# ═══════════════════════════════════════════════════════════════════════════════
+
+resource "aws_s3_bucket" "root" {
+  bucket        = "cloudnesttechnologysolutions.in"
   force_destroy = true
 
   tags = {
@@ -24,73 +29,97 @@ resource "aws_s3_bucket" "website" {
   }
 }
 
-# ── Block ALL public access (bucket is private; only CloudFront can read) ────
-resource "aws_s3_bucket_public_access_block" "website" {
-  bucket = aws_s3_bucket.website.id
+resource "aws_s3_bucket_website_configuration" "root" {
+  bucket = aws_s3_bucket.root.id
 
-  block_public_acls       = true
-  block_public_policy     = true
-  ignore_public_acls      = true
-  restrict_public_buckets = true
+  index_document { suffix = "index.html" }
+  error_document { key    = "index.html" }
 }
 
-# ── CloudFront Origin Access Control ─────────────────────────────────────────
-resource "aws_cloudfront_origin_access_control" "website" {
-  name                              = "${var.bucket_name}-oac"
-  origin_access_control_origin_type = "s3"
-  signing_behavior                  = "always"
-  signing_protocol                  = "sigv4"
+resource "aws_s3_bucket_public_access_block" "root" {
+  bucket = aws_s3_bucket.root.id
+
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
 }
 
-# ── CloudFront Distribution ───────────────────────────────────────────────────
-resource "aws_cloudfront_distribution" "website" {
-  enabled             = true
-  is_ipv6_enabled     = true
-  default_root_object = "index.html"
-  price_class         = "PriceClass_100" # US, Canada, Europe edge locations
+resource "aws_s3_bucket_policy" "root" {
+  bucket     = aws_s3_bucket.root.id
+  depends_on = [aws_s3_bucket_public_access_block.root]
 
-  origin {
-    domain_name              = aws_s3_bucket.website.bucket_regional_domain_name
-    origin_id                = "S3-${var.bucket_name}"
-    origin_access_control_id = aws_cloudfront_origin_access_control.website.id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid       = "PublicRead"
+        Effect    = "Allow"
+        Principal = "*"
+        Action    = "s3:GetObject"
+        Resource  = "arn:aws:s3:::cloudnesttechnologysolutions.in/*"
+      }
+    ]
+  })
+}
+
+# ── Upload website files to root bucket ──────────────────────────────────────
+
+locals {
+  html_files = {
+    "index.html"                                    = "${path.module}/../index.html"
+    "about.html"                                    = "${path.module}/../about.html"
+    "services.html"                                 = "${path.module}/../services.html"
+    "contact.html"                                  = "${path.module}/../contact.html"
+    "blog/index.html"                               = "${path.module}/../blog/index.html"
+    "blog/devops-best-practices-2025.html"          = "${path.module}/../blog/devops-best-practices-2025.html"
+    "blog/aws-s3-static-website-hosting.html"       = "${path.module}/../blog/aws-s3-static-website-hosting.html"
+    "blog/what-is-sre.html"                         = "${path.module}/../blog/what-is-sre.html"
   }
+}
 
-  default_cache_behavior {
-    allowed_methods        = ["GET", "HEAD"]
-    cached_methods         = ["GET", "HEAD"]
-    target_origin_id       = "S3-${var.bucket_name}"
-    viewer_protocol_policy = "redirect-to-https"
-    compress               = true
+resource "aws_s3_object" "html_pages" {
+  for_each     = local.html_files
+  bucket       = aws_s3_bucket.root.id
+  key          = each.key
+  source       = each.value
+  content_type = "text/html; charset=utf-8"
+  etag         = filemd5(each.value)
+}
 
-    forwarded_values {
-      query_string = false
-      cookies { forward = "none" }
-    }
+resource "aws_s3_object" "css" {
+  bucket       = aws_s3_bucket.root.id
+  key          = "css/styles.css"
+  source       = "${path.module}/../css/styles.css"
+  content_type = "text/css; charset=utf-8"
+  etag         = filemd5("${path.module}/../css/styles.css")
+}
 
-    min_ttl     = 0
-    default_ttl = 86400    # 1 day
-    max_ttl     = 31536000 # 1 year
-  }
+resource "aws_s3_object" "js" {
+  bucket       = aws_s3_bucket.root.id
+  key          = "js/main.js"
+  source       = "${path.module}/../js/main.js"
+  content_type = "application/javascript; charset=utf-8"
+  etag         = filemd5("${path.module}/../js/main.js")
+}
 
-  # Serve index.html for S3 403/404 (handles SPA-style routing)
-  custom_error_response {
-    error_code         = 403
-    response_code      = 200
-    response_page_path = "/index.html"
-  }
-  custom_error_response {
-    error_code         = 404
-    response_code      = 200
-    response_page_path = "/index.html"
-  }
+resource "aws_s3_object" "sitemap" {
+  bucket       = aws_s3_bucket.root.id
+  key          = "sitemap.xml"
+  source       = "${path.module}/../sitemap.xml"
+  content_type = "application/xml"
+  etag         = filemd5("${path.module}/../sitemap.xml")
+}
 
-  restrictions {
-    geo_restriction { restriction_type = "none" }
-  }
 
-  viewer_certificate {
-    cloudfront_default_certificate = true
-  }
+# ═══════════════════════════════════════════════════════════════════════════════
+#  WWW BUCKET — www.cloudnesttechnologysolutions.in
+#  Empty bucket that redirects all requests to the root domain
+# ═══════════════════════════════════════════════════════════════════════════════
+
+resource "aws_s3_bucket" "www" {
+  bucket        = "www.cloudnesttechnologysolutions.in"
+  force_destroy = true
 
   tags = {
     Project     = "CloudNest Technology Solutions"
@@ -99,51 +128,20 @@ resource "aws_cloudfront_distribution" "website" {
   }
 }
 
-# ── Bucket Policy: allow ONLY CloudFront to read objects ─────────────────────
-resource "aws_s3_bucket_policy" "website" {
-  bucket     = aws_s3_bucket.website.id
-  depends_on = [aws_s3_bucket_public_access_block.website]
+resource "aws_s3_bucket_website_configuration" "www" {
+  bucket = aws_s3_bucket.www.id
 
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Sid    = "AllowCloudFrontOAC"
-      Effect = "Allow"
-      Principal = {
-        Service = "cloudfront.amazonaws.com"
-      }
-      Action   = "s3:GetObject"
-      Resource = "${aws_s3_bucket.website.arn}/*"
-      Condition = {
-        StringEquals = {
-          "AWS:SourceArn" = aws_cloudfront_distribution.website.arn
-        }
-      }
-    }]
-  })
+  redirect_all_requests_to {
+    host_name = "cloudnesttechnologysolutions.in"
+    protocol  = "http"
+  }
 }
 
-# ── Upload website files ──────────────────────────────────────────────────────
-resource "aws_s3_object" "index" {
-  bucket       = aws_s3_bucket.website.id
-  key          = "index.html"
-  source       = "${path.module}/../index.html"
-  content_type = "text/html; charset=utf-8"
-  etag         = filemd5("${path.module}/../index.html")
-}
+resource "aws_s3_bucket_public_access_block" "www" {
+  bucket = aws_s3_bucket.www.id
 
-resource "aws_s3_object" "css" {
-  bucket       = aws_s3_bucket.website.id
-  key          = "css/styles.css"
-  source       = "${path.module}/../css/styles.css"
-  content_type = "text/css; charset=utf-8"
-  etag         = filemd5("${path.module}/../css/styles.css")
-}
-
-resource "aws_s3_object" "js" {
-  bucket       = aws_s3_bucket.website.id
-  key          = "js/main.js"
-  source       = "${path.module}/../js/main.js"
-  content_type = "application/javascript; charset=utf-8"
-  etag         = filemd5("${path.module}/../js/main.js")
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
 }

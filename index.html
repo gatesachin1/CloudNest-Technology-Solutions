@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="CloudNest Technology Solutions — Secure, fast, and scalable cloud-hosted websites for small and medium businesses across India." />
-  <meta name="keywords" content="cloud hosting, website development, AWS hosting, business website, e-commerce, India" />
+  <meta name="description" content="Cloudnest Technology Solutions provides DevOps, AWS Cloud, and scalable infrastructure services." />
+  <meta name="keywords" content="Cloudnest, DevOps, AWS, Cloud Solutions, SRE" />
   <meta name="author" content="CloudNest Technology Solutions" />
-  <title>CloudNest Technology Solutions — Cloud-Hosted Websites for Growing Businesses</title>
+  <meta name="robots" content="index, follow" />
+  <title>Cloudnest Technology Solutions - DevOps & Cloud Services</title>
+  <link rel="canonical" href="https://cloudnesttechnologysolutions.in/" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,20 +18,23 @@
 
   <!-- Open Graph / Social Sharing -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="CloudNest Technology Solutions — Cloud-Hosted Websites for Growing Businesses" />
-  <meta property="og:description" content="We build fast, secure, and scalable websites — then host them on enterprise-grade AWS infrastructure. Trusted by 50+ businesses across India." />
+  <meta property="og:url" content="https://cloudnesttechnologysolutions.in/" />
+  <meta property="og:title" content="Cloudnest Technology Solutions - DevOps & Cloud Services" />
+  <meta property="og:description" content="Cloudnest Technology Solutions provides DevOps, AWS Cloud, and scalable infrastructure services." />
   <meta property="og:locale" content="en_IN" />
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="CloudNest Technology Solutions" />
-  <meta name="twitter:description" content="Secure, fast, and scalable cloud-hosted websites for growing businesses in India." />
+  <meta name="twitter:title" content="Cloudnest Technology Solutions" />
+  <meta name="twitter:description" content="Cloudnest Technology Solutions provides DevOps, AWS Cloud, and scalable infrastructure services." />
 
-  <!-- LocalBusiness Structured Data -->
+  <!-- Organization + WebSite Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "CloudNest Technology Solutions",
-    "description": "Cloud-first web development company building secure, scalable, AWS-hosted websites for businesses across India.",
+    "@type": "Organization",
+    "name": "Cloudnest Technology Solutions",
+    "url": "https://cloudnesttechnologysolutions.in",
+    "logo": "https://cloudnesttechnologysolutions.in/assets/logo.png",
+    "description": "Cloudnest Technology Solutions provides DevOps consulting, AWS cloud infrastructure, SRE, and scalable web development services for businesses across India.",
     "telephone": "+917875255254",
     "email": "gatesachin1112@gmail.com",
     "address": {
@@ -38,19 +43,27 @@
       "addressRegion": "Maharashtra",
       "addressCountry": "IN"
     },
-    "openingHours": "Mo-Fr 09:00-19:00",
-    "priceRange": "₹₹",
-    "areaServed": "IN",
+    "sameAs": [],
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
-      "name": "Web & Cloud Services",
+      "name": "DevOps & Cloud Services",
       "itemListElement": [
-        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Business Website Development"}},
-        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "AWS Cloud Hosting"}},
-        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Website Maintenance"}},
-        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "E-Commerce Development"}}
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "DevOps Consulting"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "AWS Cloud Infrastructure"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Site Reliability Engineering (SRE)"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "CI/CD Pipeline Setup"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Infrastructure as Code"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Business Website Development"}}
       ]
     }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Cloudnest Technology Solutions",
+    "url": "https://cloudnesttechnologysolutions.in"
   }
   </script>
 
@@ -74,16 +87,14 @@
       </a>
 
       <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#why">Why Us</a></li>
-        <li><a href="#process">Process</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
         <li><a href="#pricing">Pricing</a></li>
-        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="blog/">Blog</a></li>
       </ul>
 
       <div class="nav-cta">
-        <a href="#footer" class="nav-link-btn">Contact</a>
+        <a href="contact.html" class="nav-link-btn">Contact</a>
         <a href="#demo" class="btn btn-primary btn-sm">
           <i class="fa-solid fa-play" style="font-size:0.65rem;"></i> Free Demo
         </a>
@@ -98,15 +109,13 @@
 
 <!-- Mobile menu -->
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#about"    onclick="closeMenu()">About</a>
-  <a href="#services" onclick="closeMenu()">Services</a>
-  <a href="#why"      onclick="closeMenu()">Why Us</a>
-  <a href="#process"  onclick="closeMenu()">Process</a>
-  <a href="#pricing"  onclick="closeMenu()">Pricing</a>
-  <a href="#testimonials" onclick="closeMenu()">Testimonials</a>
+  <a href="about.html"    onclick="closeMenu()">About</a>
+  <a href="services.html" onclick="closeMenu()">Services</a>
+  <a href="#pricing"      onclick="closeMenu()">Pricing</a>
+  <a href="blog/"         onclick="closeMenu()">Blog</a>
   <div class="mobile-cta" style="margin-top:8px; padding: 0 2px;">
-    <a href="#footer" class="btn btn-outline" onclick="closeMenu()">Contact</a>
-    <a href="#demo"   class="btn btn-primary" onclick="closeMenu()">Free Demo</a>
+    <a href="contact.html" class="btn btn-outline" onclick="closeMenu()">Contact</a>
+    <a href="#demo"        class="btn btn-primary" onclick="closeMenu()">Free Demo</a>
   </div>
 </div>
 
