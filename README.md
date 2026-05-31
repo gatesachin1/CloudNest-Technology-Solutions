@@ -1,6 +1,6 @@
 # CloudNest Technology Solutions — Web Portal
 
-Marketing and lead-generation website for CloudNest Technology Solutions, a cloud-first web development company based in Pune, India. Hosted on AWS S3 (private) behind CloudFront.
+Marketing and lead-generation website for Cloudnest Technology Solutions, a DevOps & cloud engineering company based in Pune, India. Hosted on AWS S3 static website hosting.
 
 ## Tech Stack
 
@@ -11,24 +11,39 @@ Marketing and lead-generation website for CloudNest Technology Solutions, a clou
 | Scripts | Vanilla JavaScript (IIFE, no framework) |
 | Fonts | Google Fonts — Inter + Poppins |
 | Icons | Font Awesome 6.5 (CDN) |
-| Hosting | AWS S3 (private) + CloudFront (HTTPS) |
+| Hosting | AWS S3 static website hosting (public) |
 | IaC | Terraform ≥ 1.3 |
 
 ## Project Structure
 
 ```
 .
-├── index.html          # HTML markup
+├── index.html                          # Home — hero, services, pricing, testimonials
+├── about.html                          # About the company, values, expertise
+├── services.html                       # DevOps, AWS, SRE, CI/CD, IaC, Web Dev
+├── contact.html                        # Contact form (WhatsApp integration) + FAQ
+├── sitemap.xml                         # All pages with priorities and change frequencies
 ├── css/
-│   └── styles.css      # All styles — design system, components, responsive
+│   └── styles.css                      # Design system, components, responsive
 ├── js/
-│   └── main.js         # Interactions — nav, counters, form, animations
-├── terraform/
-│   ├── main.tf         # S3 bucket, CloudFront distribution, bucket policy
-│   ├── variables.tf    # aws_region, bucket_name
-│   └── outputs.tf      # cloudfront_url, distribution_id, bucket info
-└── README.md
+│   └── main.js                         # Nav, counters, form submission, animations
+├── blog/
+│   ├── index.html                      # Blog listing
+│   ├── devops-best-practices-2025.html # DevOps guide for Indian SMBs
+│   ├── aws-s3-static-website-hosting.html  # S3 hosting tutorial
+│   └── what-is-sre.html                # SRE explainer
+└── terraform/
+    ├── main.tf                         # S3 buckets, static hosting, bucket policy, file uploads
+    ├── variables.tf                    # aws_region
+    └── outputs.tf                      # root_website_url, www_website_url, bucket info
 ```
+
+## S3 Buckets
+
+| Bucket | Purpose |
+|---|---|
+| `cloudnesttechnologysolutions.in` | Hosts all website files — static website hosting enabled, public read |
+| `www.cloudnesttechnologysolutions.in` | Redirect-only — all requests redirect to root domain |
 
 ## Prerequisites
 
@@ -51,17 +66,16 @@ terraform init
 # 2. Preview changes
 terraform plan
 
-# 3. Deploy (CloudFront propagation takes ~5–10 min)
+# 3. Deploy
 terraform apply
 ```
 
-After `apply` completes, Terraform outputs the live URL:
+After `apply` completes, Terraform outputs the live URLs:
 
 ```
-cloudfront_url = "d2gfppyzwe9vs0.cloudfront.net"
+root_website_url = "http://cloudnesttechnologysolutions.in.s3-website-us-east-1.amazonaws.com"
+www_website_url  = "http://www.cloudnesttechnologysolutions.in.s3-website-us-east-1.amazonaws.com"
 ```
-
-The S3 bucket is **fully private** — only the CloudFront distribution can read objects. Direct S3 URLs return 403.
 
 ## Updating the Site
 
@@ -71,15 +85,14 @@ Edit any file locally, then re-apply:
 terraform apply
 ```
 
-Terraform detects file changes via `etag = filemd5(...)` and re-uploads only changed objects. To force CloudFront to serve fresh content immediately:
+Terraform detects file changes via `etag = filemd5(...)` and re-uploads only changed objects.
 
-```bash
-aws cloudfront create-invalidation \
-  --distribution-id <cloudfront_distribution_id> \
-  --paths "/*"
-```
+## Adding a New Page
 
-Replace `E32UNUK2VNAQI6` with the value from `terraform output cloudfront_distribution_id`.
+1. Create the HTML file (root level or inside `blog/`)
+2. Add it to the `html_files` local in `terraform/main.tf`
+3. Add the URL to `sitemap.xml`
+4. Run `terraform apply`
 
 ## Teardown
 
@@ -87,12 +100,22 @@ Replace `E32UNUK2VNAQI6` with the value from `terraform output cloudfront_distri
 terraform destroy
 ```
 
-The bucket has `force_destroy = true`, so Terraform empties and deletes it automatically.
+The buckets have `force_destroy = true`, so Terraform empties and deletes them automatically.
+
+## SEO
+
+Each page includes:
+- Unique `<title>` and `<meta name="description">`
+- `<link rel="canonical">`
+- `<meta name="robots" content="index, follow">`
+- Open Graph tags (`og:title`, `og:description`, `og:url`)
+- JSON-LD structured data (Organization, WebSite, BlogPosting)
+- Listed in `sitemap.xml`
 
 ## Contact
 
-**CloudNest Technology Solutions**
-- Name: SACHIN S. GATE 
+**Cloudnest Technology Solutions**
+- Name: Sachin S. Gate
 - Email: gatesachin1112@gmail.com
 - Phone: +91 78752 55254
 - Location: Pune, Maharashtra, India
