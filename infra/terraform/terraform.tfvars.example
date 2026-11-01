@@ -1,0 +1,8 @@
+# Copy to terraform.tfvars (git-ignored) and fill in. Never commit the real file.
+aws_region         = "ap-south-1"
+domain_name        = "cloudnesttechnologysolutions.in"
+site_bucket_name   = "cloudnesttechnologysolutions-site"
+route53_zone_id    = "" # e.g. "Z0123456789ABCDEFG" if DNS is on Route 53
+contact_to_email   = "hello@cloudnesttechnologysolutions.in"
+contact_from_email = "no-reply@cloudnesttechnologysolutions.in"
+rate_limit_salt    = "REPLACE_WITH_A_LONG_RANDOM_STRING"

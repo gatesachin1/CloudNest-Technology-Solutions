@@ -1,0 +1,18 @@
+[
+  {
+    "Condition": { "KeyPrefixEquals": "about.html" },
+    "Redirect": { "ReplaceKeyWith": "about/", "HttpRedirectCode": "301", "Protocol": "https", "HostName": "cloudnesttechnologysolutions.in" }
+  },
+  {
+    "Condition": { "KeyPrefixEquals": "services.html" },
+    "Redirect": { "ReplaceKeyWith": "services/", "HttpRedirectCode": "301", "Protocol": "https", "HostName": "cloudnesttechnologysolutions.in" }
+  },
+  {
+    "Condition": { "KeyPrefixEquals": "contact.html" },
+    "Redirect": { "ReplaceKeyWith": "contact/", "HttpRedirectCode": "301", "Protocol": "https", "HostName": "cloudnesttechnologysolutions.in" }
+  },
+  {
+    "Condition": { "KeyPrefixEquals": "blog/index.html" },
+    "Redirect": { "ReplaceKeyWith": "blog/", "HttpRedirectCode": "301", "Protocol": "https", "HostName": "cloudnesttechnologysolutions.in" }
+  }
+]

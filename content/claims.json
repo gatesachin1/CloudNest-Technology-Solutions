@@ -1,0 +1,71 @@
+{
+  "_readme": "Every factual marketing claim lives here. A claim renders on the site ONLY when \"verified\": true. Unverified claims are hidden in production builds and shown as dashed TODO chips in `npm run dev` so you can review them. Before setting verified=true, make sure you can back the claim up (contracts, monitoring data, certificates, client consent).",
+  "claims": [
+    {
+      "id": "location",
+      "text": "Based in Pune, India",
+      "verified": true,
+      "source": "Owner-provided business details"
+    },
+    {
+      "id": "aws-native",
+      "text": "AWS-native hosting & deployments",
+      "verified": true,
+      "source": "Current production site runs on AWS; all hosting offers are AWS-based"
+    },
+    {
+      "id": "support-hours",
+      "text": "Support Mon–Fri, 9 AM–7 PM IST",
+      "verified": true,
+      "source": "Owner-provided business hours"
+    },
+    {
+      "id": "inr-pricing",
+      "text": "Transparent INR pricing",
+      "verified": true,
+      "source": "Published price list in content/pricing.ts"
+    },
+    {
+      "id": "remote-india",
+      "text": "Working remotely with clients across India",
+      "verified": false,
+      "source": "TODO: confirm you have delivered for clients outside Pune"
+    },
+    {
+      "id": "uptime-sla",
+      "text": "99.9% uptime SLA",
+      "verified": false,
+      "source": "TODO: only enable if you sign a written SLA with credits and can measure it"
+    },
+    {
+      "id": "client-count",
+      "text": "50+ clients",
+      "verified": false,
+      "source": "TODO: verify the exact number of distinct paying clients"
+    },
+    {
+      "id": "projects-delivered",
+      "text": "50+ projects delivered",
+      "verified": false,
+      "source": "TODO: verify against invoices / project list"
+    },
+    {
+      "id": "years-experience",
+      "text": "5+ years of experience",
+      "verified": false,
+      "source": "TODO: confirm company founding year or team experience basis"
+    },
+    {
+      "id": "aws-certified",
+      "text": "AWS-certified engineers",
+      "verified": false,
+      "source": "TODO: list certification IDs before enabling"
+    },
+    {
+      "id": "monitoring-24x7",
+      "text": "24/7 monitoring & alerting",
+      "verified": false,
+      "source": "TODO: automated alerting can run 24/7, but confirm who responds outside business hours"
+    }
+  ]
+}

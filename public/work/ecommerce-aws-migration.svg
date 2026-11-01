@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" font-family="Segoe UI, Roboto, Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fffbeb"/>
+      <stop offset="1" stop-color="#dbeafe"/>
+    </linearGradient>
+    <linearGradient id="p1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fde68a"/><stop offset="1" stop-color="#fb923c"/>
+    </linearGradient>
+    <linearGradient id="p2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#bfdbfe"/><stop offset="1" stop-color="#6366f1"/>
+    </linearGradient>
+    <linearGradient id="p3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#bbf7d0"/><stop offset="1" stop-color="#0f766e"/>
+    </linearGradient>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#0f172a" flood-opacity="0.16"/>
+    </filter>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg)"/>
+
+  <!-- Storefront -->
+  <g filter="url(#sh)">
+    <rect x="50" y="48" width="500" height="330" rx="16" fill="#fff"/>
+  </g>
+  <rect x="50" y="48" width="500" height="38" rx="16" fill="#f1f5f9"/>
+  <rect x="50" y="72" width="500" height="14" fill="#f1f5f9"/>
+  <circle cx="74" cy="67" r="5" fill="#f87171"/><circle cx="91" cy="67" r="5" fill="#fbbf24"/><circle cx="108" cy="67" r="5" fill="#34d399"/>
+  <rect x="140" y="58" width="240" height="18" rx="9" fill="#fff"/>
+  <text x="154" y="71" font-size="10" fill="#64748b">yourstore.example/shop</text>
+
+  <text x="74" y="116" font-size="15" font-weight="800" fill="#0b1220">Store</text>
+  <g font-size="11" fill="#475569"><text x="300" y="114">New</text><text x="340" y="114">Men</text><text x="380" y="114">Women</text><text x="432" y="114">Sale</text></g>
+  <rect x="490" y="100" width="40" height="22" rx="11" fill="#0b1220"/>
+  <text x="500" y="115" font-size="10" fill="#fff">🛒 2</text>
+
+  <g>
+    <rect x="74" y="136" width="140" height="120" rx="12" fill="url(#p1)"/>
+    <rect x="230" y="136" width="140" height="120" rx="12" fill="url(#p2)"/>
+    <rect x="386" y="136" width="140" height="120" rx="12" fill="url(#p3)"/>
+    <g fill="#fff" opacity="0.85">
+      <rect x="114" y="166" width="60" height="60" rx="30"/>
+      <rect x="270" y="170" width="60" height="52" rx="10"/>
+      <path d="M456 166l30 30-30 30-30-30z"/>
+    </g>
+  </g>
+  <g font-size="11">
+    <rect x="74" y="268" width="90" height="8" rx="4" fill="#94a3b8"/>
+    <text x="74" y="296" font-weight="700" fill="#0b1220">₹1,499</text>
+    <rect x="230" y="268" width="100" height="8" rx="4" fill="#94a3b8"/>
+    <text x="230" y="296" font-weight="700" fill="#0b1220">₹2,299</text>
+    <rect x="386" y="268" width="80" height="8" rx="4" fill="#94a3b8"/>
+    <text x="386" y="296" font-weight="700" fill="#0b1220">₹899</text>
+  </g>
+  <g>
+    <rect x="74" y="312" width="140" height="30" rx="8" fill="#0b1220"/><text x="114" y="331" font-size="11" font-weight="600" fill="#fff">Add to cart</text>
+    <rect x="230" y="312" width="140" height="30" rx="8" fill="#0b1220"/><text x="270" y="331" font-size="11" font-weight="600" fill="#fff">Add to cart</text>
+    <rect x="386" y="312" width="140" height="30" rx="8" fill="#0b1220"/><text x="426" y="331" font-size="11" font-weight="600" fill="#fff">Add to cart</text>
+  </g>
+
+  <!-- CI/CD pipeline card -->
+  <g filter="url(#sh)">
+    <rect x="300" y="300" width="450" height="160" rx="16" fill="#0b1220"/>
+  </g>
+  <text x="324" y="332" font-size="12" font-weight="700" fill="#fff">Deploy pipeline</text>
+  <text x="324" y="349" font-size="10" fill="#94a3b8">main · commit 4f2a9c1</text>
+  <rect x="652" y="318" width="76" height="22" rx="11" fill="#14532d"/>
+  <circle cx="666" cy="329" r="4" fill="#4ade80"/>
+  <text x="676" y="333" font-size="10" font-weight="600" fill="#bbf7d0">Passed</text>
+
+  <g font-size="10" font-weight="600">
+    <line x1="350" y1="400" x2="700" y2="400" stroke="#334155" stroke-width="3"/>
+    <line x1="350" y1="400" x2="700" y2="400" stroke="#4ade80" stroke-width="3"/>
+    <g>
+      <circle cx="350" cy="400" r="16" fill="#14532d" stroke="#4ade80" stroke-width="2"/>
+      <path d="M343 400l5 5 9-10" stroke="#4ade80" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="335" y="436" fill="#cbd5e1">Build</text>
+    </g>
+    <g>
+      <circle cx="467" cy="400" r="16" fill="#14532d" stroke="#4ade80" stroke-width="2"/>
+      <path d="M460 400l5 5 9-10" stroke="#4ade80" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="456" y="436" fill="#cbd5e1">Test</text>
+    </g>
+    <g>
+      <circle cx="584" cy="400" r="16" fill="#14532d" stroke="#4ade80" stroke-width="2"/>
+      <path d="M577 400l5 5 9-10" stroke="#4ade80" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="565" y="436" fill="#cbd5e1">Staging</text>
+    </g>
+    <g>
+      <circle cx="700" cy="400" r="16" fill="#1e3a8a" stroke="#60a5fa" stroke-width="2"/>
+      <path d="M693 404l7-9 7 9" stroke="#93c5fd" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="673" y="436" fill="#cbd5e1">AWS prod</text>
+    </g>
+  </g>
+
+  <!-- Cloud badge -->
+  <g filter="url(#sh)">
+    <rect x="600" y="70" width="150" height="96" rx="14" fill="#fff"/>
+  </g>
+  <path d="M640 128h50a16 16 0 0 0 0-32 24 24 0 0 0-45-6 18 18 0 0 0-5 38z" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5" stroke-linejoin="round"/>
+  <text x="623" y="152" font-size="11" font-weight="700" fill="#1d4ed8">Hosted on AWS</text>
+</svg>

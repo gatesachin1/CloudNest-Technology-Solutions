@@ -1,3 +1,17 @@
+# Dependencies & build
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+infra/contact-lambda/dist/
+*.zip
+
+# Env (never commit secrets)
+.env
+.env.*
+!.env.example
+
 # Terraform
 .terraform/
 .terraform.lock.hcl
@@ -11,6 +25,10 @@ override.tf.json
 *_override.tf
 *_override.tf.json
 
-# OS
+# OS / editor
 .DS_Store
 Thumbs.db
+.vscode/
+
+# Terraform build artifacts
+infra/terraform/.build/

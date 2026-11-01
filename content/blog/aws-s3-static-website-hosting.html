@@ -1,0 +1,162 @@
+
+<p>AWS S3 (Simple Storage Service) is not just for storing files — it is also one of the most reliable and cost-effective ways to host a static website. With S3, you get <strong>99.999999999% (11 9s) durability</strong>, automatic scaling, and hosting costs that are typically under ₹50/month for a typical business website.</p>
+
+<p>In this guide, we'll walk you through setting up S3 static website hosting both manually (via the AWS Console) and automatically using Terraform.</p>
+
+<div class="post-callout">
+  <strong>What is a static website?</strong> A site made of HTML, CSS, and JavaScript files — no server-side processing. This includes most marketing websites, portfolio sites, documentation sites, and landing pages.
+</div>
+
+<div class="step-heading" id="step1">
+  <span class="step-num">1</span>
+  <h2>Create an S3 Bucket with Your Domain Name</h2>
+</div>
+
+<p>For S3 static website hosting to work seamlessly with a custom domain, <strong>the bucket name must exactly match your domain name</strong>.</p>
+
+<p>In the AWS Console, go to S3 → Create bucket:</p>
+<ul>
+  <li><strong>Bucket name:</strong> <code>yourdomain.com</code> (e.g. <code>cloudnesttechnologysolutions.in</code>)</li>
+  <li><strong>AWS Region:</strong> Choose the region closest to your users. For India, <code>ap-south-1</code> (Mumbai) is ideal for latency.</li>
+  <li>Leave all other settings at defaults for now.</li>
+</ul>
+
+<p>If you also want <code>www.yourdomain.com</code> to work, create a second bucket named <code>www.yourdomain.com</code>. This bucket will only redirect to the root domain (see Step 5).</p>
+
+<div class="step-heading" id="step2">
+  <span class="step-num">2</span>
+  <h2>Enable Static Website Hosting</h2>
+</div>
+
+<p>Go to your bucket → Properties → Static website hosting → Enable.</p>
+<ul>
+  <li><strong>Index document:</strong> <code>index.html</code></li>
+  <li><strong>Error document:</strong> <code>index.html</code> (or <code>404.html</code> if you have one)</li>
+</ul>
+
+<p>After saving, AWS will show you a website endpoint like:</p>
+<div class="post-code">http://cloudnesttechnologysolutions.in.s3-website-ap-south-1.amazonaws.com</div>
+
+<p>Note this endpoint — you'll use it when configuring DNS.</p>
+
+<div class="step-heading" id="step3">
+  <span class="step-num">3</span>
+  <h2>Disable the Public Access Block</h2>
+</div>
+
+<p>By default, AWS S3 blocks all public access. For a public website, you need to allow it. Go to your bucket → Permissions → Block public access → Edit → <strong>uncheck all four options</strong> → Save.</p>
+
+<div class="post-callout warn">
+  <strong>Important:</strong> Only do this for buckets that are intentionally public. Never disable the public access block on buckets storing sensitive data like backups, user uploads, or database exports.
+</div>
+
+<div class="step-heading" id="step4">
+  <span class="step-num">4</span>
+  <h2>Add a Bucket Policy for Public Read</h2>
+</div>
+
+<p>Go to your bucket → Permissions → Bucket policy → Edit. Paste this policy (replace the bucket name with yours):</p>
+
+<div class="post-code">{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PublicRead",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::cloudnesttechnologysolutions.in/*"
+    }
+  ]
+}</div>
+
+<p>This allows anyone on the internet to read (download) files from the bucket — which is exactly what you want for a public website.</p>
+
+<div class="step-heading" id="step5">
+  <span class="step-num">5</span>
+  <h2>Upload Your Website Files</h2>
+</div>
+
+<p>Upload your <code>index.html</code>, CSS, JavaScript, and image files to the bucket, preserving the folder structure. The easiest way is the AWS Console drag-and-drop, but for production use, the AWS CLI is faster:</p>
+
+<div class="post-code">aws s3 sync ./dist s3://cloudnesttechnologysolutions.in \
+  --delete \
+  --cache-control "max-age=86400"</div>
+
+<p>The <code>--delete</code> flag removes files from S3 that no longer exist in your local directory. The <code>--cache-control</code> header tells browsers to cache files for 24 hours, improving load times.</p>
+
+<div class="step-heading" id="step6">
+  <span class="step-num">6</span>
+  <h2>Configure the www Redirect Bucket</h2>
+</div>
+
+<p>For your <code>www.yourdomain.com</code> bucket, enable static website hosting but choose <strong>"Redirect requests for an object"</strong> and set the host name to your root domain (<code>yourdomain.com</code>). This way, any visitor going to <code>www.cloudnesttechnologysolutions.in</code> will be redirected to <code>cloudnesttechnologysolutions.in</code> automatically.</p>
+
+<div class="step-heading" id="step7">
+  <span class="step-num">7</span>
+  <h2>Automate It All with Terraform</h2>
+</div>
+
+<p>Doing this manually every time you set up a new project is tedious and error-prone. Here's the Terraform equivalent of everything above:</p>
+
+<div class="post-code">resource "aws_s3_bucket" "root" {
+  bucket        = "cloudnesttechnologysolutions.in"
+  force_destroy = true
+}
+
+resource "aws_s3_bucket_website_configuration" "root" {
+  bucket = aws_s3_bucket.root.id
+  index_document { suffix = "index.html" }
+  error_document { key    = "index.html" }
+}
+
+resource "aws_s3_bucket_public_access_block" "root" {
+  bucket                  = aws_s3_bucket.root.id
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
+}
+
+resource "aws_s3_bucket_policy" "root" {
+  bucket     = aws_s3_bucket.root.id
+  depends_on = [aws_s3_bucket_public_access_block.root]
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Sid       = "PublicRead"
+      Effect    = "Allow"
+      Principal = "*"
+      Action    = "s3:GetObject"
+      Resource  = "arn:aws:s3:::cloudnesttechnologysolutions.in/*"
+    }]
+  })
+}</div>
+
+<p>Run <code>terraform init && terraform apply</code> and your entire infrastructure is set up in under a minute, reproducibly, every time.</p>
+
+<h2 id="dns">Connecting Your Domain (Route 53)</h2>
+
+<p>In AWS Route 53, create an A record for your root domain as an <strong>Alias record</strong> pointing to your S3 website endpoint. Do the same for <code>www</code> pointing to the www bucket's endpoint.</p>
+
+<p>DNS propagation takes a few minutes to a few hours. After that, <code>http://cloudnesttechnologysolutions.in</code> will serve your website directly from S3.</p>
+
+<div class="post-callout">
+  <strong>Want HTTPS?</strong> S3 static hosting only supports HTTP. To add HTTPS (SSL), you'll need to add CloudFront in front of S3. We cover that in a separate guide, or you can <a href="/contact/">contact us</a> and we'll set it up for you.
+</div>
+
+<h2 id="costs">How Much Does It Cost?</h2>
+
+<p>S3 pricing in the Mumbai (<code>ap-south-1</code>) region:</p>
+<ul>
+  <li><strong>Storage:</strong> ₹1.95 per GB per month (most websites are under 50 MB)</li>
+  <li><strong>Requests:</strong> ₹0.30 per 10,000 GET requests</li>
+  <li><strong>Data transfer out:</strong> ₹6.90 per GB after the first 100 GB/month</li>
+</ul>
+
+<p>For a typical business website with 5,000 monthly visitors, the total S3 cost is usually <strong>under ₹50 per month</strong>. That's significantly cheaper than shared hosting, with far better reliability.</p>
+
+<div class="post-callout">
+  <strong>Need help setting this up?</strong> <a href="/contact/">Reach out to Cloudnest</a> — we'll get your website live on AWS S3 with proper Terraform configuration and DNS setup, typically within one business day.
+</div>
+
