@@ -1,0 +1,180 @@
+@import "tailwindcss";
+
+/* ─── Design tokens ───────────────────────────────────────────────── */
+@theme {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-jakarta), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --color-ink: #0b1220;
+  --color-ink-2: #1e293b;
+  --color-muted: #475569;
+  --color-subtle: #586579;
+  --color-line: #e2e8f0;
+  --color-surface: #ffffff;
+  --color-surface-2: #f8fafc;
+  --color-surface-3: #f1f5f9;
+
+  --color-brand-50: #eff6ff;
+  --color-brand-100: #dbeafe;
+  --color-brand-200: #bfdbfe;
+  --color-brand-400: #60a5fa;
+  --color-brand-500: #3b82f6;
+  --color-brand-600: #2563eb;
+  --color-brand-700: #1d4ed8;
+  --color-brand-800: #1e40af;
+
+  --color-ai-50: #f5f3ff;
+  --color-ai-100: #ede9fe;
+  --color-ai-300: #c4b5fd;
+  --color-ai-400: #a78bfa;
+  --color-ai-600: #7c3aed;
+  --color-ai-700: #6d28d9;
+
+  --color-success: #0f766e;
+  --color-success-50: #f0fdfa;
+  --color-warn: #b45309;
+  --color-warn-50: #fffbeb;
+  --color-danger: #b91c1c;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+
+  --shadow-card: 0 1px 2px rgb(15 23 42 / 0.04), 0 4px 16px rgb(15 23 42 / 0.06);
+  --shadow-float: 0 2px 6px rgb(15 23 42 / 0.06), 0 24px 56px -12px rgb(15 23 42 / 0.22);
+
+  --text-display: clamp(2.25rem, 1.4rem + 3.6vw, 3.75rem);
+  --text-display--line-height: 1.05;
+  --text-display--letter-spacing: -0.025em;
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-blink: blink 1.2s infinite;
+  --animate-fade-up: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes blink {
+  0%, 80%, 100% { opacity: 0.25; }
+  40% { opacity: 1; }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes reveal-fallback {
+  to { opacity: 1; transform: none; }
+}
+
+/* ─── Scroll reveal (see components/motion/reveal.tsx) ─────────────
+   Hidden only when JS is running (html.js, set by an inline script), and a
+   fallback animation reveals everything after 3s if the observer never runs. */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1), transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: reveal-fallback 0.3s 3s forwards;
+}
+.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+  animation: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] { opacity: 1; transform: none; animation: none; }
+}
+
+/* ─── Base ────────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-surface text-ink font-sans antialiased;
+    
+  }
+  h1, h2, h3, h4 {
+    @apply font-display text-ink;
+    text-wrap: balance;
+  }
+  p { text-wrap: pretty; }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-600;
+  }
+  ::selection { @apply bg-brand-100 text-ink; }
+  [id] { scroll-margin-top: 6rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-[1200px] px-4 sm:px-6 lg:px-8;
+  }
+  .section {
+    @apply py-12 lg:py-16;
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-xs font-semibold tracking-wide text-brand-700 uppercase;
+  }
+  .eyebrow-ai {
+    @apply border-ai-100 bg-ai-50 text-ai-700;
+  }
+  .text-gradient {
+    @apply bg-gradient-to-r from-brand-600 via-brand-500 to-ai-600 bg-clip-text text-transparent;
+  }
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgb(15 23 42 / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(15 23 42 / 0.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+}
+
+/* ─── Blog article body (migrated posts) ──────────────────────────── */
+.prose-post {
+  @apply text-[1.0625rem] leading-[1.8] text-ink-2;
+}
+.prose-post > * + * { @apply mt-5; }
+.prose-post h2 { @apply mt-12 text-2xl font-bold tracking-tight sm:text-[1.75rem]; }
+.prose-post h3 { @apply mt-8 text-xl font-semibold; }
+.prose-post h4 { @apply text-base font-semibold; }
+.prose-post a { @apply font-medium text-brand-700 underline decoration-brand-200 underline-offset-4 hover:decoration-brand-600; }
+.prose-post strong { @apply font-semibold text-ink; }
+.prose-post ul { @apply list-disc space-y-2 pl-6 marker:text-brand-500; }
+.prose-post ol { @apply list-decimal space-y-2 pl-6 marker:text-brand-600 marker:font-semibold; }
+.prose-post code { @apply rounded bg-surface-3 px-1.5 py-0.5 font-mono text-[0.9em] text-ink; }
+.prose-post .post-code {
+  @apply overflow-x-auto rounded-md bg-ink p-5 font-mono text-sm leading-relaxed whitespace-pre text-slate-100;
+}
+.prose-post .post-callout {
+  @apply rounded-md border-l-4 border-brand-600 bg-brand-50 p-5 text-[0.98rem];
+}
+.prose-post .post-callout.warn { @apply border-warn bg-warn-50; }
+.prose-post .post-callout.violet { @apply border-ai-600 bg-ai-50; }
+.prose-post .concept-grid { @apply grid gap-4 sm:grid-cols-2; }
+.prose-post .concept-card { @apply rounded-md border border-line bg-surface-2 p-5; }
+.prose-post .concept-card h3 { @apply mt-0 text-base font-semibold; }
+.prose-post .concept-card p { @apply mt-2 text-[0.95rem] leading-relaxed text-muted; }
+.prose-post .step-heading { @apply mt-12 flex items-center gap-3; }
+.prose-post .step-heading h2 { @apply mt-0; }
+.prose-post .step-num {
+  @apply grid size-9 shrink-0 place-items-center rounded-full bg-brand-600 text-sm font-bold text-white;
+}
+
+/* Horizontal scrollers (components/ui/scroller.tsx): keep swipe/trackpad scrolling, hide the bar. */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}

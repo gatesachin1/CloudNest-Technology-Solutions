@@ -1,0 +1,19 @@
+# AWS Amplify Hosting build spec (only used if you choose Amplify instead of S3 + CloudFront).
+# Set NEXT_PUBLIC_SITE_URL and NEXT_PUBLIC_CONTACT_ENDPOINT in Amplify → Environment variables.
+# Paste infra/amplify/redirects.json into Amplify → Hosting → Rewrites and redirects.
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm ci
+    build:
+      commands:
+        - npm run build
+  artifacts:
+    baseDirectory: out
+    files:
+      - "**/*"
+  cache:
+    paths:
+      - node_modules/**/*
